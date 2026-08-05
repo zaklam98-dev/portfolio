@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function AboutHero() {
   return (
-    <section className="container-content pb-16 pt-16 md:pb-24 md:pt-20">
+    <section className="container-content pb-[34px] pt-16 md:pb-[66px] md:pt-20">
       <div className="mx-auto flex max-w-5xl flex-col items-center gap-14 md:flex-row md:items-center md:justify-between md:gap-10">
         <div className="max-w-xl text-center md:text-left">
           <h1 className="font-heading text-4xl font-extrabold leading-[1.05] tracking-tight text-ink sm:text-5xl md:text-6xl">
@@ -30,14 +30,22 @@ export default function AboutHero() {
           </span>
         </div>
 
-        <div className="relative h-[280px] w-[280px] shrink-0 md:h-[380px] md:w-[380px]">
+        <div className="group relative h-[280px] w-[280px] shrink-0 md:h-[380px] md:w-[380px]">
           <Image
-            src="/images/about/illustration.png"
+            src="/images/illustrations/creativity-default.png"
             alt="Line illustration of An Ny sitting at her laptop with glasses on, surrounded by app icons, sparkles and a small frog"
             fill
             sizes="(min-width: 768px) 380px, 280px"
-            className="object-contain"
+            className="object-contain transition-opacity duration-200 group-hover:opacity-0"
             priority
+          />
+          <Image
+            src="/images/illustrations/creativity-hover.png"
+            alt=""
+            fill
+            sizes="(min-width: 768px) 380px, 280px"
+            aria-hidden="true"
+            className="absolute inset-0 object-contain opacity-0 transition-opacity duration-200 group-hover:opacity-100"
           />
         </div>
       </div>

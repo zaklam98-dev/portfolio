@@ -26,7 +26,7 @@ export default function CraftSection() {
               <h3 className="font-heading text-xl font-bold text-ink">
                 {group.title}
               </h3>
-              <ul className="mt-5 space-y-3 text-base text-body">
+              <ul className="mt-5 space-y-3 text-lg text-body md:text-xl">
                 {group.items.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
