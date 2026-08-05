@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/annylam/Desktop/portfolio_images/About/**)",
+      "Bash(sips -g pixelWidth -g pixelHeight \"/Users/annylam/Desktop/portfolio_figma/About.png\")",
+      "Bash(python3 *)",
+      "Bash(pip3 install *)"
+    ]
+  }
+}
