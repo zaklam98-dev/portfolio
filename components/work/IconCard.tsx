@@ -8,7 +8,7 @@ type IconCardProps = {
 
 export default function IconCard({ title, children, icon }: IconCardProps) {
   return (
-    <div className="border border-border p-8">
+    <div className="rounded-xl2 border border-border p-8">
       <div className="flex items-center gap-3">
         {icon && (
           <Image src={icon} alt="" width={24} height={24} aria-hidden="true" />

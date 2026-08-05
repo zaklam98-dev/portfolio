@@ -35,9 +35,15 @@ const config: Config = {
           "0%": { opacity: "0", transform: "translateY(12px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
+        logoPop: {
+          "0%": { transform: "translateY(0) scale(1) rotate(0deg)" },
+          "75%": { transform: "translateY(-2.6px) scale(1.055) rotate(-2.1deg)" },
+          "100%": { transform: "translateY(-2px) scale(1.04) rotate(-1.5deg)" },
+        },
       },
       animation: {
         fadeUp: "fadeUp 0.6s ease-out both",
+        "logo-pop": "logoPop 320ms cubic-bezier(0.22, 1, 0.36, 1) forwards",
       },
     },
   },

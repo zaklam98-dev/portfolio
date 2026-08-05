@@ -58,7 +58,19 @@ There is no test suite configured in this repo.
   `/about` and `/contact` nav links have no pages yet).
 - Use the `container-content` utility class (defined in `app/globals.css`) for
   page-width containers rather than re-deriving max-width/padding per section.
+  Case-study (`/work/*`) pages use `container-work` instead (same pattern, capped
+  at `max-w-6xl` to match that content column's measured width).
 - Respects `prefers-reduced-motion` globally (see `app/globals.css`).
+- **Border radius is a standing design-system rule, not a per-Figma-frame
+  choice.** Every card/block-style container (bordered content blocks, note/
+  disclaimer boxes, grid wrappers) gets rounded corners — `rounded-xl2` (20px)
+  for these bordered block containers, matching `ProjectGrid`'s wrapper. Image
+  treatments follow their own established radii (`rounded-2xl` for hero
+  banners, `rounded-xl`/`rounded-lg` for card thumbnails). If a Figma frame
+  shows a sharp-cornered block, round it anyway to match this system — this
+  applies to the not-yet-built case-study pages (Bunch, RealSwipe, Echo
+  Archive, Diamond Roofing, How the Body Remembers, HobbyLink) as much as to
+  what's already built.
 
 ## Content/assets
 

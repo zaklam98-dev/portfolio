@@ -18,7 +18,7 @@ export default function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-bg/95 backdrop-blur">
       <div className="container-content flex h-20 items-center justify-between md:h-24">
-        <Link href="/" className="text-ink" aria-label="An Ny Lam — Home">
+        <Link href="/" className="group text-ink" aria-label="An Ny Lam — Home">
           <Logo className="h-9 w-9" />
         </Link>
 

@@ -18,7 +18,7 @@ export default function SiteFooter() {
       <div className="container-content flex flex-col items-center gap-6 py-8 md:grid md:grid-cols-3 md:items-center md:gap-4">
         <Link
           href="/"
-          className="text-ink md:justify-self-start"
+          className="group text-ink md:justify-self-start"
           aria-label="An Ny Lam — Home"
         >
           <Logo className="h-7 w-7" />

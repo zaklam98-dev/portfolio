@@ -48,13 +48,12 @@ const platforms = [
   {
     number: "03",
     image: "/images/work/woolworths-internal-products/product-03.png",
-    imageWidth: 478,
-    imageHeight: 362,
+    imageWidth: 470,
+    imageHeight: 354,
     title: "Compliance Review Platform",
     description: "Making AI-generated compliance reports understandable.",
     tags: ["Information Architecture"],
     href: "#project-03",
-    showImageBorder: false,
   },
 ];
 

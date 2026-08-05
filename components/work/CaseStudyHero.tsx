@@ -61,7 +61,7 @@ export default function CaseStudyHero({
 
       <CaseStudyNav items={navItems} />
 
-      <div className="mt-10 flex gap-3 bg-black/[0.04] p-6 md:mt-14 md:p-8">
+      <div className="mt-10 flex gap-3 rounded-xl2 bg-black/[0.04] p-6 md:mt-14 md:p-8">
         <svg
           width="18"
           height="18"

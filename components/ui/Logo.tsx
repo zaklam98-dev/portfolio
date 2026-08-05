@@ -8,7 +8,7 @@ export default function Logo({ className = "h-9 w-9" }: LogoProps) {
       viewBox="0 0 40 40"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      className={`origin-center [transform:translateY(0)_scale(1)_rotate(0deg)] transition-transform duration-[320ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:animate-logo-pop group-focus-visible:animate-logo-pop ${className}`}
       aria-hidden="true"
     >
       <path

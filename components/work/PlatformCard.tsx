@@ -11,7 +11,6 @@ type PlatformCardProps = {
   description: string;
   tags: string[];
   href: string;
-  showImageBorder?: boolean;
 };
 
 export default function PlatformCard({
@@ -23,19 +22,19 @@ export default function PlatformCard({
   description,
   tags,
   href,
-  showImageBorder = true,
 }: PlatformCardProps) {
   return (
-    <Link href={href} className="group block p-8">
-      <div
-        className={`overflow-hidden rounded-lg ${showImageBorder ? "border border-border" : ""}`}
-      >
+    <Link
+      href={href}
+      className="group flex h-full flex-col p-8 transition-colors duration-200 hover:bg-surface/60"
+    >
+      <div className="overflow-hidden rounded-lg border border-border">
         <Image
           src={image}
           alt={title}
           width={imageWidth}
           height={imageHeight}
-          className="w-full object-cover"
+          className="w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
         />
       </div>
 
@@ -45,15 +44,19 @@ export default function PlatformCard({
       </h3>
       <p className="mt-3 text-body">{description}</p>
 
-      <div className="mt-5 flex flex-wrap gap-2.5">
-        {tags.map((tag) => (
-          <Tag key={tag}>{tag}</Tag>
-        ))}
-      </div>
+      <div className="mt-auto pt-5">
+        <div className="flex flex-wrap gap-2.5">
+          {tags.map((tag) => (
+            <Tag key={tag} variant="outline">
+              {tag}
+            </Tag>
+          ))}
+        </div>
 
-      <span className="mt-6 block text-center font-semibold text-teal transition-opacity duration-200 group-hover:opacity-80">
-        View product
-      </span>
+        <span className="mt-6 block text-center font-semibold text-teal transition-opacity duration-200 group-hover:opacity-80">
+          View product
+        </span>
+      </div>
     </Link>
   );
 }
