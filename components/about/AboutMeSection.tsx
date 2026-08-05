@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Eyebrow from "@/components/about/Eyebrow";
+import Eyebrow from "@/components/ui/Eyebrow";
 
 const facts = [
   { emoji: "🇻🇳", text: "Originally from Vietnam, now based in Sydney." },

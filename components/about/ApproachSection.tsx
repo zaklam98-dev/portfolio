@@ -1,4 +1,4 @@
-import Eyebrow from "@/components/about/Eyebrow";
+import Eyebrow from "@/components/ui/Eyebrow";
 
 export default function ApproachSection() {
   return (
