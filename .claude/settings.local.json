@@ -4,7 +4,14 @@
       "Read(//Users/annylam/Desktop/portfolio_images/About/**)",
       "Bash(sips -g pixelWidth -g pixelHeight \"/Users/annylam/Desktop/portfolio_figma/About.png\")",
       "Bash(python3 *)",
-      "Bash(pip3 install *)"
+      "Bash(pip3 install *)",
+      "Bash(mkdir -p /Users/annylam/Desktop/an-ny-portfolio-home/public/images/about)",
+      "Bash(cp \"/Users/annylam/Desktop/portfolio_images/About/Illu=Default.png\" \"/Users/annylam/Desktop/an-ny-portfolio-home/public/images/about/illustration.png\")",
+      "Bash(cp \"/Users/annylam/Desktop/portfolio_images/About/1.png\" \"/Users/annylam/Desktop/an-ny-portfolio-home/public/images/about/painting.png\")",
+      "Bash(cp \"/Users/annylam/Desktop/portfolio_images/About/2.png\" \"/Users/annylam/Desktop/an-ny-portfolio-home/public/images/about/sydney-park.png\")",
+      "Bash(cp \"/Users/annylam/Desktop/portfolio_images/About/3.png\" \"/Users/annylam/Desktop/an-ny-portfolio-home/public/images/about/crochet.png\")",
+      "Bash(npm run *)",
+      "Bash(pkill -f \"next dev\")"
     ]
   }
 }
