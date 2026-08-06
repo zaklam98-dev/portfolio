@@ -6,16 +6,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Next.js (App Router) / React 19 / TypeScript / Tailwind CSS rebuild of a Figma
 design for An Ny Lam's product design portfolio. Home and About pages are built.
-Of the 6 case-study pages under `/work/*`, only
-`work/woolworths-internal-products` has been started (partially — see
-`PROGRESS.md` for exactly what's built vs pending); the other 5 are linked to
-but not yet implemented (404 by design at this stage).
+Of the 6 case-study pages under `/work/*`, `work/woolworths-internal-products`
+and `work/bunch` are complete; the other 4 (RealSwipe, Echo Archive, Diamond
+Roofing, How the Body Remembers, HobbyLink) are linked to but not yet
+implemented (404 by design at this stage).
 
-**Mid-build case study:** `PROGRESS.md` at the repo root tracks the
-Woolworths Internal Products page's pass-by-pass status, the source
-Figma/asset file mapping already researched, and copy for the sections not
-yet built — read it before resuming that page so the content research doesn't
-get redone.
+**Reference case studies:** `PROGRESS.md` at the repo root tracks the
+Woolworths Internal Products page's pass-by-pass build history, the source
+Figma/asset file mapping, and content research — useful as a worked example
+of the case-study conventions (layout patterns, image-treatment decisions,
+`CaseStudyHero`/`CaseStudyNav` usage) when building the remaining pages,
+including Bunch, which reused and extended this pattern (see
+`app/work/bunch/page.tsx` and the `CaseStudyHero` `subtitle`/optional-`intro`/
+optional-`disclaimer` props it added for a differently-shaped hero).
 
 ## Commands
 

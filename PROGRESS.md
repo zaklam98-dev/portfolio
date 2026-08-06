@@ -1,8 +1,14 @@
 # Woolworths Internal Products — case study progress
 
 Status checkpoint for `app/work/woolworths-internal-products/page.tsx`, the first
-of 6 case-study pages. Read this before resuming the build — it captures the
-content/asset research already done so it doesn't need to be redone.
+of 6 case-study pages. **All 5 passes are now complete** — the page is fully
+built end-to-end (Hero through Next Projects) and every `navItems`/
+`PlatformCard` anchor (`#overview`, `#project-01/02/03`, `#outcomes`)
+resolves to a real section. This file is kept as a historical record of the
+content/asset research and layout decisions for this case study — useful
+reference if similar patterns are needed for the other 5 not-yet-started
+case-study pages (Bunch, RealSwipe, Echo Archive, Diamond Roofing, How the
+Body Remembers, HobbyLink).
 
 ## Done (Pass 1)
 
@@ -33,8 +39,11 @@ system (see CLAUDE.md → Motion conventions).
 - **`components/work/PlatformCard.tsx`** — the 3 Enterprise Products summary
   cards linking to `#project-01/02/03`. Whole card is a `Link`, flex-column with
   `mt-auto` on the tags+CTA block so it stays flush to the bottom regardless of
-  description length. Tags use `variant="outline"` (transparent bg — the
-  `solid` default is still used by `ProjectCard`/Home page, untouched).
+  description length. Tags use `variant="outline"` (transparent bg). **Update
+  (later session):** `ProjectCard` was changed to `variant="outline"` too, so
+  every project card sitewide (Home's Selected Work/Other Explorations, this
+  case study's Next Projects) now has transparent-bg tags — the `solid`
+  variant still exists on `Tag` but nothing currently uses it.
 - **`components/ui/Eyebrow.tsx`** — promoted from `components/about/` to
   `components/ui/` this session (`variant="teal"` default / `"muted"` for
   gray section labels like `OVERVIEW`, `ENTERPRISE PRODUCTS`).
@@ -46,14 +55,6 @@ system (see CLAUDE.md → Motion conventions).
 The disclaimer's copy was originally obscured in the source screenshot by the
 overlapping sticky nav; the user has since supplied the real text and it's live.
 No other flagged gaps remain in the built sections.
-
-## Not started — Pass 5
-
-`app/work/woolworths-internal-products/page.tsx` currently ends after Part 03
-(Compliance Review Platform). `navItems` and the `PlatformCard`s already link
-to `#project-01`, `#project-02`, `#project-03`, `#outcomes` — **Pass 5 needs
-`id="outcomes"`** for that link (and the nav) to actually scroll anywhere;
-it's still a dead anchor. All other nav targets now resolve.
 
 Source screenshot: `/Users/annylam/Desktop/portfolio_figma/Woolworths Internal
 Products.png` (3413×32768 — has ~277px black letterboxing bars on both sides;
@@ -190,39 +191,51 @@ in-browser at `/work/woolworths-internal-products#project-03`.
 - **Designing For Trust** (teal `Eyebrow`) + paragraph + 4-item bullet list
   (critical failures / warnings / informational checks / supporting
   evidence) + closing paragraph — last content in Part 03, immediately
-  followed by the site's `ContactBanner` footer (Pass 5 not yet built).
+  followed by the Pass 5 Outcomes section below.
 - Assets copied to `public/images/work/woolworths-internal-products/` as
   `project-03-solution-1.png`, `project-03-solution-2.png`,
   `project-03-solution-3.png`.
 
-### Pass 5 bonus — Outcomes/Reflection text pre-verified
+## Done (Pass 5) — final pass, case study now complete
 
-While cropping the Part 03 boundary, also captured the exact Outcomes
-heading + Reflection intro copy (see next section) — already accurate, no
-need to re-derive when building Pass 5.
+Outcomes / Reflection / Next Projects (`id="outcomes"`) is built, verified
+against a full-resolution crop of the source screenshot, and checked live
+in-browser at `/work/woolworths-internal-products#outcomes`.
 
-### Pass 5 — Outcomes, Reflection, Next Projects (`id="outcomes"`)
-
-- **"Outcomes"** — this is a standalone large heading (`font-heading`, same
-  scale as an H2, **not** the teal-eyebrow-label pattern the rest of the page
-  uses). Exact copy verified: "These enterprise products transformed
-  fragmented operational workflows into intuitive digital experiences that
-  support teams across Woolworths." / "The platforms now enable users to:"
-  then 3 bullets — discover information faster / navigate large datasets
-  more efficiently / review complex information with greater confidence.
-- **Reflection** — muted `Eyebrow` (confirmed same gray-caps style as
-  Context/Problem/Solution, not teal). First paragraph starts: "Designing
-  enterprise products taught me that **the biggest challenge was never
-  simply creating polished interfaces, it was understanding how people make
-  decisions within complex systems.**" (bold emphasis span starts mid-
-  sentence at "the biggest challenge" — same pattern as Overview's bold
-  span). Only this first paragraph's start was captured in the Pass 4 crop;
-  the other 2 Reflection paragraphs still need to be read from the source
-  screenshot when building this pass.
-- **NEXT PROJECTS** — reuse `ProjectGrid`/`ProjectCard` exactly like the home
-  page, per the original brief. Source from `lib/projects.ts`'s `selectedWork`,
-  filtered to exclude `woolworths-internal-products` itself → Bunch, RealSwipe,
-  Echo Archive.
+- **"Outcomes"** — a standalone large heading (plain `<h2>` with the same
+  `font-heading text-4xl font-extrabold md:text-5xl` classes
+  `PhaseSectionHeader`'s title uses, but no eyebrow/subtitle — confirmed
+  this is *not* the teal-eyebrow-label pattern the rest of the page uses).
+  Paragraph: "These enterprise products transformed fragmented operational
+  workflows into intuitive digital experiences that support teams across
+  Woolworths." / "The platforms now enable users to:" then 3 bullets —
+  discover information faster / navigate large datasets more efficiently /
+  review complex information with greater confidence.
+- **Reflection** — muted `Eyebrow` + 3 paragraphs (confirmed exact copy for
+  all 3, resolving the Pass 4 open item):
+  1. "Designing enterprise products taught me that **the biggest challenge
+     was never simply creating polished interfaces, it was understanding
+     how people make decisions within complex systems.**" (bold starts
+     mid-sentence).
+  2. "Across every project, I found that the greatest improvements came
+     from organising information thoughtfully, reducing cognitive load and
+     presenting the right information at the right time." (plain, no bold).
+  3. "That mindset continues to shape how I approach every product I
+     design: **start with the decisions users need to make, then design
+     experiences that make those decisions feel effortless.**" (bold
+     starts mid-sentence).
+- **Next Projects** — muted `Eyebrow` + `ProjectGrid` reused from
+  `lib/projects.ts`'s `selectedWork`, filtered to exclude
+  `woolworths-internal-products` → Bunch, RealSwipe, Echo Archive, `columns=3
+  size="small"` (matches home page's "Other Explorations" grid treatment,
+  not the 2-col "Selected Work" one). **Resolved an open question**: the
+  Figma design does *not* show the `001`/`002`/`003` number badge that
+  `ProjectCard` renders when `project.number` is set (confirmed by
+  comparing against the live home page, where Selected Work *does* show
+  numbers) — so the page maps the filtered array to `{ ...project, number:
+  undefined }` before passing it to `ProjectGrid`, rather than modifying
+  `ProjectCard`/`ProjectGrid` themselves (both stay untouched, reusable
+  as-is for other case-study pages that may want numbers shown).
 
 ## Conventions established this session (also in CLAUDE.md)
 

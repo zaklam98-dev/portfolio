@@ -19,10 +19,18 @@ type CaseStudyHeroProps = {
   imageHeight: number;
   imageAlt: string;
   title: string;
+  /** Rendered directly under the title, in the left column — for case
+   * studies whose title has a one-line subtitle attached to it rather than
+   * a separate intro paragraph next to the meta table (e.g. Bunch). */
+  subtitle?: string;
   meta: MetaRow[];
-  intro: string;
+  /** Rendered under the meta table, in the right column — omit for case
+   * studies that don't pair the meta table with a separate intro (e.g.
+   * Bunch, which uses `subtitle` under the title instead). */
+  intro?: string;
   navItems: NavItem[];
-  disclaimer: string;
+  /** Omit for case studies with no confidentiality/anonymisation note. */
+  disclaimer?: string;
 };
 
 export default function CaseStudyHero({
@@ -31,6 +39,7 @@ export default function CaseStudyHero({
   imageHeight,
   imageAlt,
   title,
+  subtitle,
   meta,
   intro,
   navItems,
@@ -56,12 +65,19 @@ export default function CaseStudyHero({
           <h1 className="font-heading text-4xl font-extrabold leading-[1.1] text-ink md:text-5xl">
             {title}
           </h1>
+          {subtitle && (
+            <p className="mt-4 text-lg font-semibold text-ink md:text-xl">
+              {subtitle}
+            </p>
+          )}
         </Reveal>
 
         <Reveal variant="paragraph" delay={120}>
           <div>
             <MetaTable rows={meta} />
-            <p className="mt-6 text-lg leading-relaxed text-body">{intro}</p>
+            {intro && (
+              <p className="mt-6 text-lg leading-relaxed text-body">{intro}</p>
+            )}
           </div>
         </Reveal>
       </div>
@@ -71,33 +87,35 @@ export default function CaseStudyHero({
           `position: fixed` descendants, which would break the sticky nav. */}
       <CaseStudyNav items={navItems} />
 
-      <Reveal variant="default" delay={200} className="mt-10 md:mt-14">
-        <div className="flex gap-3 rounded-xl2 bg-black/[0.04] p-6 md:p-8">
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 20 20"
-            fill="none"
-            className="mt-0.5 shrink-0 text-coral"
-            aria-hidden="true"
-          >
-            <path
-              d="M10 2L18.5 17H1.5L10 2Z"
-              stroke="currentColor"
-              strokeWidth="1.4"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M10 8V11.5"
-              stroke="currentColor"
-              strokeWidth="1.4"
-              strokeLinecap="round"
-            />
-            <circle cx="10" cy="14" r="0.9" fill="currentColor" />
-          </svg>
-          <p className="text-body">{disclaimer}</p>
-        </div>
-      </Reveal>
+      {disclaimer && (
+        <Reveal variant="default" delay={200} className="mt-10 md:mt-14">
+          <div className="flex gap-3 rounded-xl2 bg-black/[0.04] p-6 md:p-8">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 20 20"
+              fill="none"
+              className="mt-0.5 shrink-0 text-coral"
+              aria-hidden="true"
+            >
+              <path
+                d="M10 2L18.5 17H1.5L10 2Z"
+                stroke="currentColor"
+                strokeWidth="1.4"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M10 8V11.5"
+                stroke="currentColor"
+                strokeWidth="1.4"
+                strokeLinecap="round"
+              />
+              <circle cx="10" cy="14" r="0.9" fill="currentColor" />
+            </svg>
+            <p className="text-body">{disclaimer}</p>
+          </div>
+        </Reveal>
+      )}
     </section>
   );
 }

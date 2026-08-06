@@ -43,7 +43,9 @@ export default function ProjectCard({ project, size = "large" }: ProjectCardProp
         </p>
         <div className="mt-5 flex flex-wrap gap-2.5">
           {project.tags.map((tag) => (
-            <Tag key={tag}>{tag}</Tag>
+            <Tag key={tag} variant="outline">
+              {tag}
+            </Tag>
           ))}
         </div>
       </div>

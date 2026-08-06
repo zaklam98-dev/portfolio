@@ -4,8 +4,10 @@ import CaseStudyHero from "@/components/work/CaseStudyHero";
 import PhaseSectionHeader from "@/components/work/PhaseSectionHeader";
 import PlatformCard from "@/components/work/PlatformCard";
 import IconCard from "@/components/work/IconCard";
+import ProjectGrid from "@/components/work/ProjectGrid";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
+import { selectedWork } from "@/lib/projects";
 
 export const metadata: Metadata = {
   title: "Woolworths Internal Products — An Ny Lam",
@@ -139,6 +141,10 @@ const philosophyCards = [
     ],
   },
 ];
+
+const nextProjects = selectedWork
+  .filter((project) => project.href !== "/work/woolworths-internal-products")
+  .map((project) => ({ ...project, number: undefined }));
 
 export default function WoolworthsInternalProductsPage() {
   return (
@@ -737,6 +743,68 @@ export default function WoolworthsInternalProductsPage() {
                 </p>
               </div>
             </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <section id="outcomes" className="container-work py-16 md:py-20">
+        <Reveal variant="heading">
+          <h2 className="font-heading text-4xl font-extrabold text-ink md:text-5xl">
+            Outcomes
+          </h2>
+        </Reveal>
+        <Reveal variant="paragraph" delay={100} className="mt-6">
+          <div className="space-y-4 text-lg leading-relaxed text-body">
+            <p>
+              These enterprise products transformed fragmented operational
+              workflows into intuitive digital experiences that support
+              teams across Woolworths.
+            </p>
+            <p>The platforms now enable users to:</p>
+            <ul className="list-disc space-y-2 pl-5">
+              <li>discover information faster</li>
+              <li>navigate large datasets more efficiently</li>
+              <li>review complex information with greater confidence</li>
+            </ul>
+          </div>
+        </Reveal>
+
+        <div className="mt-16 md:mt-20">
+          <Reveal variant="paragraph">
+            <Eyebrow variant="muted">Reflection</Eyebrow>
+            <div className="mt-4 space-y-4 text-lg leading-relaxed text-body">
+              <p>
+                Designing enterprise products taught me that{" "}
+                <span className="font-bold text-ink">
+                  the biggest challenge was never simply creating polished
+                  interfaces, it was understanding how people make decisions
+                  within complex systems.
+                </span>
+              </p>
+              <p>
+                Across every project, I found that the greatest improvements
+                came from organising information thoughtfully, reducing
+                cognitive load and presenting the right information at the
+                right time.
+              </p>
+              <p>
+                That mindset continues to shape how I approach every product
+                I design:{" "}
+                <span className="font-bold text-ink">
+                  start with the decisions users need to make, then design
+                  experiences that make those decisions feel effortless.
+                </span>
+              </p>
+            </div>
+          </Reveal>
+        </div>
+
+        <div className="mt-16 md:mt-20">
+          <Reveal variant="paragraph">
+            <Eyebrow variant="muted">Next Projects</Eyebrow>
+          </Reveal>
+          <div className="mt-8">
+            <ProjectGrid projects={nextProjects} columns={3} size="small" />
           </div>
         </div>
       </section>
