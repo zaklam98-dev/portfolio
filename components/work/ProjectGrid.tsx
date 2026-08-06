@@ -1,4 +1,5 @@
 import ProjectCard from "@/components/work/ProjectCard";
+import Reveal from "@/components/ui/Reveal";
 import type { Project } from "@/lib/projects";
 
 type ProjectGridProps = {
@@ -36,7 +37,9 @@ export default function ProjectGrid({
 
           return (
             <div key={project.title} className={cellClasses}>
-              <ProjectCard project={project} size={size} />
+              <Reveal variant="card" index={index}>
+                <ProjectCard project={project} size={size} />
+              </Reveal>
             </div>
           );
         })}

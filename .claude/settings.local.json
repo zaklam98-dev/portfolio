@@ -32,7 +32,16 @@
       "Bash(cp \"Cognitive.svg\" \"/Users/annylam/Desktop/an-ny-portfolio-home/public/images/work/woolworths-internal-products/icons/cognitive.svg\")",
       "Bash(cp \"scanning.svg\" \"/Users/annylam/Desktop/an-ny-portfolio-home/public/images/work/woolworths-internal-products/icons/scanning.svg\")",
       "Bash(cp \"Consistent.svg\" \"/Users/annylam/Desktop/an-ny-portfolio-home/public/images/work/woolworths-internal-products/icons/consistent.svg\")",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "Bash(curl -s http://localhost:3000/)",
+      "Bash(cp \"/Users/annylam/Documents/Screenshots/Screenshot 2026-08-06 at 9.49.25 am.png\" /private/tmp/claude-501/-Users-annylam-Desktop-an-ny-portfolio-home/5fd7aeb0-75da-4a27-9c3a-05953b572dc3/scratchpad/shot1.png)",
+      "Bash(cp \"/Users/annylam/Documents/Screenshots/Screenshot 2026-08-06 at 9.49.34 am.png\" /private/tmp/claude-501/-Users-annylam-Desktop-an-ny-portfolio-home/5fd7aeb0-75da-4a27-9c3a-05953b572dc3/scratchpad/shot2.png)",
+      "Bash(cp \"/Users/annylam/Desktop/Screenshot 2026-08-06 at 9.49.25 am.png\" \"/private/tmp/claude-501/-Users-annylam-Desktop-an-ny-portfolio-home/5fd7aeb0-75da-4a27-9c3a-05953b572dc3/scratchpad/box1.png\")",
+      "Bash(cp \"/Users/annylam/Desktop/Screenshot 2026-08-06 at 9.49.34 am.png\" \"/private/tmp/claude-501/-Users-annylam-Desktop-an-ny-portfolio-home/5fd7aeb0-75da-4a27-9c3a-05953b572dc3/scratchpad/box2.png\")",
+      "Bash(brctl status *)",
+      "Bash(break)",
+      "Bash(file *.png)",
+      "Bash(xattr \"Screenshot 2026-08-06 at 9.49.25 am.png\")"
     ]
   }
 }

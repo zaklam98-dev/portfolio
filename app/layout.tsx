@@ -33,6 +33,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${heading.variable} ${body.variable}`}>
       <body className="flex min-h-screen flex-col">
+        <noscript>
+          <style>{`.reveal { opacity: 1 !important; transform: none !important; }`}</style>
+        </noscript>
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <ContactBanner />

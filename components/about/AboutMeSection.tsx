@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Eyebrow from "@/components/ui/Eyebrow";
+import Reveal from "@/components/ui/Reveal";
 
 const facts = [
   { emoji: "🇻🇳", text: "Originally from Vietnam, now based in Sydney." },
@@ -43,20 +44,26 @@ export default function AboutMeSection() {
   return (
     <section className="container-content py-16 md:py-20">
       <div className="mx-auto max-w-5xl">
-        <Eyebrow>A Few Things About Me</Eyebrow>
-        <ul className="mt-8 space-y-4 text-lg text-body md:text-xl">
-          {facts.map((fact) => (
-            <li key={fact.text} className="flex items-start gap-3">
-              <span aria-hidden="true">{fact.emoji}</span>
-              <span>{fact.text}</span>
-            </li>
-          ))}
-        </ul>
+        <Reveal variant="paragraph">
+          <Eyebrow>A Few Things About Me</Eyebrow>
+        </Reveal>
+        <Reveal variant="default" delay={100} className="mt-8">
+          <ul className="space-y-4 text-lg text-body md:text-xl">
+            {facts.map((fact) => (
+              <li key={fact.text} className="flex items-start gap-3">
+                <span aria-hidden="true">{fact.emoji}</span>
+                <span>{fact.text}</span>
+              </li>
+            ))}
+          </ul>
+        </Reveal>
 
         <div className="mt-16 flex items-center justify-center md:mt-20">
           {photos.map((photo, index) => (
-            <div
+            <Reveal
               key={photo.src}
+              variant="image"
+              index={index}
               className={`relative w-40 shrink-0 sm:w-52 md:w-64 ${photo.offset} ${photo.z} hover:z-30 ${
                 index !== 0 ? "-ml-6 sm:-ml-8 md:-ml-10" : ""
               }`}
@@ -72,7 +79,7 @@ export default function AboutMeSection() {
                   className="h-auto w-full"
                 />
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

@@ -4,6 +4,7 @@ import PhaseSectionHeader from "@/components/work/PhaseSectionHeader";
 import PlatformCard from "@/components/work/PlatformCard";
 import IconCard from "@/components/work/IconCard";
 import Eyebrow from "@/components/ui/Eyebrow";
+import Reveal from "@/components/ui/Reveal";
 
 export const metadata: Metadata = {
   title: "Woolworths Internal Products — An Ny Lam",
@@ -107,58 +108,72 @@ export default function WoolworthsInternalProductsPage() {
       />
 
       <section id="overview" className="container-work py-16 md:py-20">
-        <Eyebrow variant="muted">Overview</Eyebrow>
-        <div className="mt-6 space-y-5 text-lg leading-relaxed text-body">
-          <p>
-            During my time at Woolworths, I designed a suite of internal web
-            applications used across multiple business teams to manage
-            product launches, industry events, and compliance reviews.
-          </p>
-          <p>Although each product served a different purpose, they all shared the same challenge:</p>
-          <blockquote className="border-l-2 border-ink/30 pl-6 text-2xl leading-snug text-ink md:text-3xl">
-            Operational information was scattered across spreadsheets,
-            disconnected systems and structured datasets.
-          </blockquote>
-          <p>
-            My role was to transform this complexity into digital products
-            that were{" "}
-            <span className="font-bold text-ink">
-              intuitive, searchable and easy to navigate.
-            </span>
-          </p>
-          <p>
-            Together, these platforms replaced spreadsheet-driven workflows
-            with purpose-built digital experiences that supported teams
-            throughout the product lifecycle - from planning industry
-            events, to monitoring product launches, to reviewing AI-assisted
-            compliance reports.
-          </p>
-        </div>
+        <Reveal variant="paragraph">
+          <Eyebrow variant="muted">Overview</Eyebrow>
+        </Reveal>
+        <Reveal variant="paragraph" delay={100} className="mt-6">
+          <div className="space-y-5 text-lg leading-relaxed text-body">
+            <p>
+              During my time at Woolworths, I designed a suite of internal web
+              applications used across multiple business teams to manage
+              product launches, industry events, and compliance reviews.
+            </p>
+            <p>Although each product served a different purpose, they all shared the same challenge:</p>
+            <blockquote className="border-l-2 border-ink/30 pl-6 text-2xl leading-snug text-ink md:text-3xl">
+              Operational information was scattered across spreadsheets,
+              disconnected systems and structured datasets.
+            </blockquote>
+            <p>
+              My role was to transform this complexity into digital products
+              that were{" "}
+              <span className="font-bold text-ink">
+                intuitive, searchable and easy to navigate.
+              </span>
+            </p>
+            <p>
+              Together, these platforms replaced spreadsheet-driven workflows
+              with purpose-built digital experiences that supported teams
+              throughout the product lifecycle - from planning industry
+              events, to monitoring product launches, to reviewing AI-assisted
+              compliance reports.
+            </p>
+          </div>
+        </Reveal>
 
         <div className="mt-16 md:mt-20">
-          <Eyebrow variant="muted">Enterprise Products</Eyebrow>
+          <Reveal variant="paragraph">
+            <Eyebrow variant="muted">Enterprise Products</Eyebrow>
+          </Reveal>
           <div className="mt-8 overflow-hidden rounded-xl2 border border-border">
             <div className="grid grid-cols-1 divide-y divide-border md:grid-cols-3 md:divide-x md:divide-y-0">
-              {platforms.map((platform) => (
-                <PlatformCard key={platform.title} {...platform} />
+              {platforms.map((platform, index) => (
+                <Reveal key={platform.title} variant="card" index={index}>
+                  <PlatformCard {...platform} />
+                </Reveal>
               ))}
             </div>
           </div>
         </div>
 
         <div className="mt-16 md:mt-20">
-          <Eyebrow variant="muted">Design Philosophy</Eyebrow>
-          <p className="mt-6 text-lg text-ink">
-            Although each platform solved a different business problem, I
-            approached every project using the same principles.
-          </p>
+          <Reveal variant="paragraph">
+            <Eyebrow variant="muted">Design Philosophy</Eyebrow>
+          </Reveal>
+          <Reveal variant="paragraph" delay={100} className="mt-6">
+            <p className="text-lg text-ink">
+              Although each platform solved a different business problem, I
+              approached every project using the same principles.
+            </p>
+          </Reveal>
           <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
-            {philosophyCards.map((card) => (
-              <IconCard key={card.title} title={card.title} icon={card.icon}>
-                {card.paragraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-              </IconCard>
+            {philosophyCards.map((card, index) => (
+              <Reveal key={card.title} variant="card" index={index}>
+                <IconCard title={card.title} icon={card.icon}>
+                  {card.paragraphs.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                </IconCard>
+              </Reveal>
             ))}
           </div>
         </div>

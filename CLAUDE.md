@@ -38,7 +38,8 @@ There is no test suite configured in this repo.
   `ContactBanner`.
 - **`components/home/`** holds home-page-only sections (`Hero`,
   `CreativitySection` — the hover-swap illustration section).
-- **`components/ui/`** holds small shared primitives (`Tag`, `PillLink`, `Logo`).
+- **`components/ui/`** holds small shared primitives (`Tag`, `PillLink`, `Logo`,
+  `Eyebrow`, `Reveal`).
 - Path alias `@/*` maps to the repo root (see `tsconfig.json`).
 
 ## Styling conventions
@@ -71,6 +72,41 @@ There is no test suite configured in this repo.
   applies to the not-yet-built case-study pages (Bunch, RealSwipe, Echo
   Archive, Diamond Roofing, How the Body Remembers, HobbyLink) as much as to
   what's already built.
+
+## Motion conventions
+
+- **`components/ui/Reveal.tsx`** is the standing viewport-reveal system —
+  every page (built or not-yet-built) should use it for content entering the
+  viewport, rather than a one-off animation. It's a client component backed
+  by a single shared `IntersectionObserver` (cheap even with many siblings on
+  one page, e.g. a card grid), animates each element once, and reads
+  `prefers-reduced-motion` to skip straight to the visible end state — a
+  `<noscript>` rule in `app/layout.tsx` also forces `.reveal` elements
+  visible with JS disabled, so content never gets stuck invisible.
+- Usage: `<Reveal variant="..." index={i}><YourElement /></Reveal>`. Variants
+  (`heading`, `paragraph`, `image`, `card`, `button`, `default`) set
+  duration/lift/scale per content type — see the `VARIANTS` map in the
+  component before inventing new values. For staggered siblings (card grids,
+  photo stacks, feature lists), pass `index={i}` from the `.map()` call
+  (≈100ms per step); use `delay` directly for hand-tuned one-off sequences
+  (e.g. cascading hero content on load).
+- **Wrap from the outside in, never rebuild a component's own root.** Reveal
+  renders a plain `div` and only ever touches `opacity`/`transform` via
+  inline style, so nest it around an element rather than merging it into a
+  component that already manages its own hover transform (`ProjectCard`,
+  `PlatformCard`'s `group-hover:scale-*`, the About photo stack's
+  `rotate-*`/hover-lift) — nested transforms compose fine, but nothing should
+  ever be *replaced*.
+  - Exception: when the element Reveal wraps carries load-bearing layout
+    classes itself (negative margins, `z-index`, explicit sizing — e.g. the
+    About page photo stack), fold those classes into Reveal's own
+    `className` instead of adding another wrapper `div`, so Reveal's root
+    *is* the flex/grid item rather than an extra ancestor around it.
+  - **Never wrap `CaseStudyNav` (or any ancestor of it).** It's
+    `position: fixed`; a `transform` on any ancestor — including Reveal's
+    pre-reveal inline transform — creates a new containing block for fixed
+    descendants and silently breaks the sticky nav's viewport positioning.
+    Wrap `CaseStudyHero`'s other children individually instead.
 
 ## Content/assets
 
