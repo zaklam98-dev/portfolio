@@ -5,12 +5,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## What this is
 
 Next.js (App Router) / React 19 / TypeScript / Tailwind CSS rebuild of a Figma
-design for An Ny Lam's product design portfolio. Home and About pages are
-built, and **all 7 case-study pages under `/work/*`** (see `lib/projects.ts`)
-are built — there is no unbuilt page left. `work/hobbylink` is itself a
-"coming soon" placeholder *by design* (its own Figma source is just a hero +
-challenge/concept blurb + a disclaimer note saying the full case study is in
+design for An Ny Lam's product design portfolio. Home, About and Contact
+pages are built, and **all 7 case-study pages under `/work/*`** (see
+`lib/projects.ts`) are built — every route in site nav now resolves, there is
+no unbuilt/404ing page left. `work/hobbylink` is itself a "coming soon"
+placeholder *by design* (its own Figma source is just a hero + challenge/
+concept blurb + a disclaimer note saying the full case study is in
 progress) — that's not a gap to fill, it's the actual current source design.
+`/contact` (below) is the one exception to "every page has a Figma source" —
+it was designed originally within the existing system, not traced from a
+screenshot, and its copy is a first draft pending the user's review.
 
 **Reference case studies:** `PROGRESS.md` at the repo root tracks the
 Woolworths Internal Products page's pass-by-pass build history, the source
@@ -25,7 +29,75 @@ layout patterns a new case study needs already have precedent.
 
 ### Current status / next steps (as of this session)
 
-Done this session: built `app/work/hobbylink/page.tsx` — the last unbuilt
+**Status: no known outstanding work.** All 7 case studies plus Home, About
+and Contact are built, and the Home/About hero entrance animation (below) is
+finished and tuned to the user's taste through several rounds of feedback.
+There is no queued next step — the next session should ask the user what
+they want to work on rather than assume there's a backlog. One caveat:
+Contact's hero copy (see below) is a first-pass draft the user hasn't
+reviewed/edited yet — don't treat its wording as locked the way every other
+page's copy is.
+
+Done this session (most recent first): built `app/contact/page.tsx` +
+`components/contact/ContactHero.tsx` — the last unresolved route, so the
+site's full nav (Home, About, Contact, all 7 case studies) now works
+end-to-end with no 404s. Unlike every other page, Contact has **no Figma
+source** — the user asked for it to be designed originally but strictly
+within the existing system (same tokens/spacing/radii/motion, no new
+component styles). Two things worth flagging:
+- `ContactBanner` already renders globally on every page via
+  `app/layout.tsx`, directly under `{children}` — so Contact's own content
+  is deliberately just a short calm hero (pill badge "Let's talk" → heading
+  "Let's build something together" → one-line paragraph → Email me/LinkedIn
+  CTAs) that leads into the global banner as its closing CTA, rather than
+  duplicating "get in touch" messaging a second time. Checked visually: the
+  hero's copy and the banner's "Have an idea, a project, or just want to
+  chat?" line don't overlap in wording.
+- `PillLink` (`components/ui/PillLink.tsx`) gained an `outline` variant
+  (`border border-border text-ink hover:bg-surface/60 rounded-full px-6
+  py-3` — same treatment as `Tag`'s outline variant, pill-shaped and sized
+  to match `PillLink`'s existing `dark`/`teal` variants) for the secondary
+  "Connect on LinkedIn" CTA, plus an `external` prop (sets
+  `target="_blank" rel="noopener noreferrer"`, mirroring the `external`
+  flag `SiteHeader`/`SiteFooter` already use on their nav-link arrays) since
+  no prior `PillLink` usage pointed off-site. Reach for these before
+  hand-rolling another outline/external link button. The LinkedIn href is
+  the same `https://www.linkedin.com/` placeholder already used in
+  `SiteHeader`/`SiteFooter` (see README's noted assumption that the real
+  LinkedIn URL isn't wired up yet).
+- Hero copy is intentionally short/calm per direct request ("shouldn't try
+  to out-compete the global banner") — resist the urge to pad it out with
+  more sections; if the user wants Contact to grow (a form, FAQ, etc.) treat
+  that as new scope, not a gap in this build.
+
+Earlier this session: built a choreographed load-in animation for the Home
+(`components/home/Hero.tsx`) and About
+(`components/about/AboutHero.tsx`) heroes, replacing their previous
+scroll-triggered `Reveal`-based entrance. See the new **Motion conventions**
+entry below for the reusable `.hero-anim-*` system this introduced — read
+that before touching either hero again, since the final per-element timing
+values came from several rounds of "still doesn't look right" iteration
+with the user (spring timing moved 5 times before landing on "bounce +
+squiggle fire together, right after the heading's last element finishes")
+and shouldn't be re-derived from scratch. Also went through several rounds
+of illustration updates on `public/images/illustrations/creativity-
+{default,hover}.png` (originally 434×444, then re-exported at 900×851 for
+clarity, then again at **1000×969 with darkened linework** — the current,
+final files) — no code changes needed for any of these swaps since both
+`CreativitySection.tsx` and `AboutHero.tsx` already render them via `fill` +
+`object-contain`, so a future illustration swap should be similarly drop-in
+as long as the new files keep a roughly similar aspect ratio (very different
+ratios will letterbox more visibly). The display box itself *did* need a
+code change, separate from the asset swaps: it was still sized for the old
+380px source and looked soft even with the sharper 900×851 art, so both
+components' box (and matching `sizes` attr) were widened from
+`h-[280px]/w-[280px] md:h-[380px]/w-[380px]` to **`md:h-[500px]/w-[500px]`**
+— the 1000×969 source now matches that box exactly at 2x retina scaling.
+If either illustration is swapped again, re-check that the new asset's
+native resolution still comfortably covers a 500px display box at 2x
+(i.e. ≥1000px wide) or it'll go soft again.
+
+Earlier this session: built `app/work/hobbylink/page.tsx` — the last unbuilt
 case study, so **all 7 `/work/*` pages are now complete.** Its Figma source
 is intentionally short: hero (image → title/subtitle+meta, the normal
 `CaseStudyHero` order, no nav pills — same `navItems` omission as Diamond
@@ -37,7 +109,7 @@ showed. Next Projects excludes RealSwipe (same curated 3-item allowlist
 pattern as Diamond Roofing, for the same reason: HobbyLink isn't in
 `selectedWork` so the self-exclude filter doesn't apply).
 
-Also this session, two follow-up fixes to `how-the-body-remembers` after
+Also earlier this session, two follow-up fixes to `how-the-body-remembers` after
 the initial build (both from direct user feedback, not part of the initial
 build pass — worth knowing if similar patterns come up elsewhere):
 - A flexbox `min-width: auto` bug in the Probe Kit cards: an `<Image>` with
@@ -266,6 +338,82 @@ There is no test suite configured in this repo.
   shows a sharp-cornered block, round it anyway to match this system.
 
 ## Motion conventions
+
+- **The `.hero-anim-*` system in `app/globals.css`** is a *separate* motion
+  system from `Reveal`, purpose-built for the Home/About hero's one-time
+  choreographed load-in (`components/home/Hero.tsx` and
+  `components/about/AboutHero.tsx`). Both heroes are always above the fold,
+  so there's no scroll trigger to wait for — these are plain CSS
+  `@keyframes` + `animation` (not `transition`), fired on mount via
+  `animation-delay`, with zero JS. Don't route new above-fold, load-in-only
+  animations through `Reveal` (which exists to solve a different problem,
+  scroll-into-view timing) — extend this system instead. Classes:
+  - `.hero-anim-rise` — fade + translateY, the default "appear" motion for
+    plain text/pill elements (paragraphs, role line, tags, pills).
+  - `.hero-anim-letter` — same motion, sized for a single split-out letter
+    (see "AN NY" below).
+  - `.hero-anim-group-settle` — a **transform-only** (no opacity) bounce/
+    spring, meant to wrap a *group* of already-visible children and settle
+    them together as one beat, rather than each child springing on its own.
+    "AN NY," in both heroes is built this way: each letter is its own
+    `hero-anim-letter` span (fade+rise, revealed left-to-right via
+    staggered delays), all nested inside one `hero-anim-group-settle`
+    wrapper that bounces the whole word once the letters have landed. This
+    replaced an earlier version where only the last letter had its own
+    spring — don't reintroduce a per-letter spring; the group wrapper is
+    the deliberate, tuned design.
+  - `.hero-anim-draw` — hand-drawn stroke reveal for the small teal squiggle
+    beside "AN NY," via `stroke-dasharray`/`stroke-dashoffset`. **The
+    squiggle SVG is inlined directly in each hero's JSX** (not
+    `next/image`), because animating `stroke-dashoffset` requires the
+    `<path>` to be real DOM you can target with CSS — an externally
+    referenced `<img>`/`next/image` source can't be reached this way.
+    `stroke-dasharray` is set to `28`, deliberately close to the path's
+    actual longest subpath (~26 units, measured with a small bezier
+    arc-length script, not eyeballed) rather than an arbitrary large
+    number. **This matters**: an oversized dasharray (e.g. `150`, tried
+    first) means most of the `stroke-dashoffset` animation range falls
+    inside the pattern's invisible "gap" segment, so the stroke finishes
+    drawing in the first ~15–20% of the animation and then does nothing
+    visible for the rest — it reads as an instant flash-in, not a
+    hand-drawn line. If this squiggle (or a similar one elsewhere) is ever
+    resized or redrawn, re-measure the path length and update
+    `stroke-dasharray` to match — don't reuse `28` or guess a bigger number
+    "to be safe."
+  - `.hero-anim-mask` — the "Product Designer" line's editorial reveal:
+    text slides up from behind an `overflow-hidden` mask
+    (`translateY(100%) → translateY(0)`) instead of just fading in. **The
+    descender-safety buffer must live on the animated inner element, not
+    the outer clip container.** The bug that shipped first: padding-bottom
+    was added to the outer `overflow-hidden` wrapper to stop "g"/"p"
+    descenders from clipping in the settled state — which worked for the
+    settled state, but also enlarged the clip *window* itself, so during
+    the pre-animation hidden state (`translateY(100%)`, which only offsets
+    by the *inner* element's own un-padded height) the top sliver of the
+    padded window let the text peek through before the reveal even
+    started. Fix: put `pb-[0.3em]` on the inner animated span (so
+    `translateY(100%)` — relative to that now-taller element — clears the
+    buffer automatically) and put the compensating `-mb-[0.3em]` on the
+    outer wrapper alone. If you touch this again, verify both states, not
+    just the settled one: force `transform: translateY(100%)` via devtools
+    (or a quick `element.style.transform` override) and confirm the inner
+    element's top edge sits at or below the outer's clip boundary.
+  - Per-element `animationDelay` values in both hero components were
+    hand-tuned over several rounds of user feedback (the group-settle
+    bounce alone moved: end of sequence → no-pause-after-last-tag →
+    340ms → right after "Product Designer" finishes / the squiggle's
+    equivalent point in About → squiggle retimed to match it exactly).
+    Final state: in `Hero.tsx` the bounce and squiggle both fire at
+    `880ms` (the instant "Product Designer"'s mask reveal finishes,
+    `340ms` delay + `540ms` duration); in `AboutHero.tsx` they both fire
+    at `980ms` (About has no second heading line, so this is anchored to
+    when the squiggle *would* finish drawing on its own). Treat these as
+    considered, tested values, not scaffolding — don't "clean up" the
+    specific millisecond numbers without a reason.
+  - Reduced motion needs no special handling here — the existing global
+    `@media (prefers-reduced-motion: reduce)` rule in `globals.css` (which
+    forces `animation-duration`/`transition-duration` to ~0 on `*`) already
+    covers these too, same as everywhere else.
 
 - **`components/ui/Reveal.tsx`** is the standing viewport-reveal system —
   every page (built or not-yet-built) should use it for content entering the

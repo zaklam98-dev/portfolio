@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Urbanist, Inter } from "next/font/google";
 import SiteHeader from "@/components/layout/SiteHeader";
 import SiteFooter from "@/components/layout/SiteFooter";
-import ContactBanner from "@/components/layout/ContactBanner";
+import ConditionalContactBanner from "@/components/layout/ConditionalContactBanner";
 import "./globals.css";
 
 const heading = Urbanist({
@@ -38,7 +38,7 @@ export default function RootLayout({
         </noscript>
         <SiteHeader />
         <main className="flex-1">{children}</main>
-        <ContactBanner />
+        <ConditionalContactBanner />
         <SiteFooter />
       </body>
     </html>

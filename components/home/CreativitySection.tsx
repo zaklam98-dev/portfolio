@@ -33,19 +33,19 @@ export default function CreativitySection() {
         </div>
 
         <Reveal variant="image" className="shrink-0">
-          <div className="group relative h-[280px] w-[280px] shrink-0 md:h-[380px] md:w-[380px]">
+          <div className="group relative h-[280px] w-[280px] shrink-0 md:h-[500px] md:w-[500px]">
             <Image
               src="/images/illustrations/creativity-default.png"
               alt="Line illustration of An Ny working at her laptop, surrounded by icons and a small frog"
               fill
-              sizes="(min-width: 768px) 380px, 280px"
+              sizes="(min-width: 768px) 500px, 280px"
               className="object-contain group-hover:opacity-0"
             />
             <Image
               src="/images/illustrations/creativity-hover.png"
               alt=""
               fill
-              sizes="(min-width: 768px) 380px, 280px"
+              sizes="(min-width: 768px) 500px, 280px"
               aria-hidden="true"
               className="absolute inset-0 object-contain opacity-0 group-hover:opacity-100"
             />

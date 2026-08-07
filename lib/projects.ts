@@ -7,6 +7,8 @@ export type Project = {
   imageWidth: number;
   imageHeight: number;
   href: string;
+  /** Renders a "Coming soon" pill over the card's image (e.g. HobbyLink). */
+  comingSoon?: boolean;
 };
 
 export const selectedWork: Project[] = [
@@ -17,8 +19,8 @@ export const selectedWork: Project[] = [
       "Transforming complex enterprise data into intuitive products that help teams make faster decisions.",
     tags: ["Enterprise UX", "Information Architecture"],
     image: "/images/home/woolworths-internal-products.png",
-    imageWidth: 1021,
-    imageHeight: 804,
+    imageWidth: 761,
+    imageHeight: 599,
     href: "/work/woolworths-internal-products",
   },
   {
@@ -28,8 +30,8 @@ export const selectedWork: Project[] = [
       "Evolving an online food community through feature design and user-centred improvements.",
     tags: ["Product Design", "Community Experience"],
     image: "/images/home/bunch.png",
-    imageWidth: 1021,
-    imageHeight: 804,
+    imageWidth: 761,
+    imageHeight: 599,
     href: "/work/bunch",
   },
   {
@@ -39,8 +41,8 @@ export const selectedWork: Project[] = [
       "Repositioning a dating-focused experience into a friendship-first social platform.",
     tags: ["UX Strategy", "Mobile Design"],
     image: "/images/home/realswipe.png",
-    imageWidth: 1021,
-    imageHeight: 804,
+    imageWidth: 761,
+    imageHeight: 599,
     href: "/work/realswipe",
   },
   {
@@ -50,8 +52,8 @@ export const selectedWork: Project[] = [
       "Exploring how technology can support emotion, identity and memory during pregnancy.",
     tags: ["UX Research", "Experience Design"],
     image: "/images/home/echo-archive.png",
-    imageWidth: 1021,
-    imageHeight: 804,
+    imageWidth: 761,
+    imageHeight: 599,
     href: "/work/echo-archive",
   },
 ];
@@ -63,18 +65,18 @@ export const otherExplorations: Project[] = [
       "Building a cohesive brand identity spanning logo, website and marketing collateral.",
     tags: ["Branding", "Web Design"],
     image: "/images/home/diamond-roofing.png",
-    imageWidth: 638,
-    imageHeight: 484,
+    imageWidth: 632,
+    imageHeight: 480,
     href: "/work/diamond-roofing",
   },
   {
     title: "How the Body Remembers",
     description:
       "Exploring how repetition and sensory feedback shape embodied memory through the art of making coffee.",
-    tags: ["Human-Centered Research", "Artefacts"],
+    tags: ["Human-Centered Research", "Cultural Probes"],
     image: "/images/home/how-the-body-remembers.png",
-    imageWidth: 638,
-    imageHeight: 484,
+    imageWidth: 632,
+    imageHeight: 480,
     href: "/work/how-the-body-remembers",
   },
   {
@@ -83,8 +85,9 @@ export const otherExplorations: Project[] = [
       "Helping international students build friendships through a collectible smart companion and shared interests.",
     tags: ["UX Research", "Interaction Design"],
     image: "/images/home/hobbylink.png",
-    imageWidth: 638,
-    imageHeight: 484,
+    imageWidth: 632,
+    imageHeight: 480,
     href: "/work/hobbylink",
+    comingSoon: true,
   },
 ];

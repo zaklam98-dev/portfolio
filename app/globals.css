@@ -45,8 +45,9 @@
   }
 }
 
-/* Hero entrance choreography — shared by components/home/Hero.tsx and
-   components/about/AboutHero.tsx. A one-time, pure-CSS load-in sequence —
+/* Hero entrance choreography — shared by components/home/Hero.tsx,
+   components/about/AboutHero.tsx and components/contact/ContactHero.tsx.
+   A one-time, pure-CSS load-in sequence —
    distinct from the scroll-triggered Reveal system used everywhere else,
    since both heroes are always above the fold and don't need
    IntersectionObserver-driven visibility. Every rule below only sets
@@ -101,6 +102,15 @@
   }
 }
 
+@keyframes heroDrawLarge {
+  0% {
+    stroke-dashoffset: 168;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
 @keyframes heroMask {
   0% {
     transform: translateY(100%);
@@ -131,6 +141,20 @@
      stroke instead of mostly sitting in an invisible gap. */
   stroke-dasharray: 28;
   animation: heroDraw 550ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-anim-draw-lg {
+  /* components/contact/ContactHero.tsx's squiggle (squiggle-large.svg,
+     inlined the same reason as .hero-anim-draw's — animating
+     stroke-dashoffset needs a real <path> in the DOM) is a different, much
+     longer asset: three separate comet-trail cubic-bezier strokes in one
+     <path>, total length ~164.6 units measured with a small bezier
+     arc-length script (not eyeballed). 168 comfortably covers that total.
+     Subpath "M" jumps don't consume stroke-dasharray length, so animating
+     one dashoffset across the whole path draws the three strokes in
+     sequence — the intended hand-drawn, one-stroke-after-another effect. */
+  stroke-dasharray: 168;
+  animation: heroDrawLarge 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .hero-anim-mask {

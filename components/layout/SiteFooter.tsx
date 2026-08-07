@@ -7,7 +7,7 @@ import Logo from "@/components/ui/Logo";
 const footerLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/", external: true },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/an-ny-lam/", external: true },
 ];
 
 export default function SiteFooter() {

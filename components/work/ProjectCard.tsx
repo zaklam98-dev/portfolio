@@ -17,7 +17,7 @@ export default function ProjectCard({ project, size = "large" }: ProjectCardProp
       href={project.href}
       className="group block p-6 transition-colors duration-200 hover:bg-surface/60 md:p-10"
     >
-      <div className="overflow-hidden rounded-xl bg-border/30">
+      <div className="relative overflow-hidden rounded-xl">
         <Image
           src={project.image}
           alt={project.title}
@@ -25,6 +25,11 @@ export default function ProjectCard({ project, size = "large" }: ProjectCardProp
           height={project.imageHeight}
           className="aspect-[4/3] w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
         />
+        {project.comingSoon && (
+          <span className="absolute bottom-4 left-4 inline-flex items-center rounded-full bg-bg px-4 py-2 text-sm font-medium text-ink shadow-md">
+            Coming soon
+          </span>
+        )}
       </div>
 
       <div className="mt-6">

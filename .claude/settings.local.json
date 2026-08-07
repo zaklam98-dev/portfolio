@@ -54,7 +54,15 @@
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
       "Bash(cp \"/Users/annylam/Desktop/portfolio_images/Illu=Default.png\" /Users/annylam/Desktop/an-ny-portfolio-home/public/images/illustrations/creativity-default.png)",
-      "Bash(cp \"/Users/annylam/Desktop/portfolio_images/Illu=Hover.png\" /Users/annylam/Desktop/an-ny-portfolio-home/public/images/illustrations/creativity-hover.png)"
+      "Bash(cp \"/Users/annylam/Desktop/portfolio_images/Illu=Hover.png\" /Users/annylam/Desktop/an-ny-portfolio-home/public/images/illustrations/creativity-hover.png)",
+      "Bash(kill %1)",
+      "Bash(cp \"/Users/annylam/Desktop/portfolio_images/Home/Woolworths internal.png\" woolworths-internal-products.png)",
+      "Bash(cp \"/Users/annylam/Desktop/portfolio_images/Home/Bunch.png\" bunch.png)",
+      "Bash(cp \"/Users/annylam/Desktop/portfolio_images/Home/RealSwipe.png\" realswipe.png)",
+      "Bash(cp \"/Users/annylam/Desktop/portfolio_images/Home/Echo Archive.png\" echo-archive.png)",
+      "Bash(cp \"/Users/annylam/Desktop/portfolio_images/Home/Diamond Roofing.png\" diamond-roofing.png)",
+      "Bash(md5 diamond-roofing.png how-the-body-remembers.png hobbylink.png)",
+      "Bash(md5 \"Diamond Roofing.png\" \"How the body remembers.png\" \"HobbyLink.png\")"
     ]
   }
 }
