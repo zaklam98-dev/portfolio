@@ -1,65 +1,98 @@
-import Image from "next/image";
-import Reveal from "@/components/ui/Reveal";
-
 const heroTags = ["Product Design", "UX/UI", "Interaction Design", "Visual Design"];
 
 export default function Hero() {
   return (
     <section className="container-content pb-16 pt-16 md:pb-24 md:pt-20">
       <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-        <Reveal variant="button">
-          <span className="inline-flex items-center rounded-full border border-border bg-bg px-5 py-2 text-base text-ink">
-            Hello!
-          </span>
-        </Reveal>
+        <span className="hero-anim-pop inline-flex items-center rounded-full border border-border bg-bg px-5 py-2 text-base text-ink">
+          Hello!
+        </span>
 
-        <Reveal variant="heading" delay={80} className="mt-6">
-          <h1 className="font-heading text-5xl font-extrabold leading-[1.05] tracking-tight text-ink sm:text-6xl md:text-7xl lg:text-[80px]">
-            <span className="relative inline-block">
-              I&apos;m{" "}
-              <span className="text-teal">
-                AN NY<span className="text-ink">,</span>
+        <h1 className="mt-6 font-heading text-5xl font-extrabold leading-[1.05] tracking-tight text-ink sm:text-6xl md:text-7xl lg:text-[80px]">
+          <span className="relative inline-block">
+            <span className="hero-anim-rise inline-block" style={{ animationDelay: "70ms" }}>
+              I&apos;m
+            </span>{" "}
+            <span
+              className="hero-anim-group-settle inline-block text-teal"
+              style={{ animationDelay: "430ms" }}
+            >
+              <span className="hero-anim-letter inline-block" style={{ animationDelay: "150ms" }}>
+                A
               </span>
-              <Image
-                src="/images/illustrations/squiggle-small.svg"
-                alt=""
-                width={32}
-                height={33}
-                className="absolute -right-8 -top-3 h-6 w-6 md:h-8 md:w-8"
-                aria-hidden="true"
-              />
-            </span>
-            <br />
-            Product Designer
-          </h1>
-        </Reveal>
-
-        <Reveal variant="paragraph" delay={220} className="mt-8 max-w-3xl">
-          <p className="text-lg leading-relaxed text-ink md:text-xl">
-            I create thoughtful digital experiences by transforming complexity
-            into intuitive products that help people understand, navigate and
-            make confident decisions.
-          </p>
-        </Reveal>
-
-        <Reveal variant="paragraph" delay={300} className="mt-5">
-          <p className="text-sm text-muted md:text-base">
-            Creative Designer @ Woolworths • Master of Interaction Design, UTS
-          </p>
-        </Reveal>
-
-        <Reveal variant="default" delay={380} className="mt-7">
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            {heroTags.map((tag) => (
+              <span className="hero-anim-letter inline-block" style={{ animationDelay: "185ms" }}>
+                N
+              </span>{" "}
+              <span className="hero-anim-letter inline-block" style={{ animationDelay: "220ms" }}>
+                N
+              </span>
+              <span className="hero-anim-letter inline-block" style={{ animationDelay: "255ms" }}>
+                Y
+              </span>
               <span
-                key={tag}
-                className="inline-flex items-center rounded-md border border-border bg-bg px-3.5 py-2 text-[11px] font-semibold uppercase tracking-wider text-ink"
+                className="hero-anim-letter inline-block text-ink"
+                style={{ animationDelay: "255ms" }}
               >
-                {tag}
+                ,
               </span>
-            ))}
-          </div>
-        </Reveal>
+            </span>
+            <svg
+              width="32"
+              height="33"
+              viewBox="0 0 32 33"
+              fill="none"
+              aria-hidden="true"
+              className="absolute -right-8 -top-3 h-6 w-6 md:h-8 md:w-8"
+            >
+              <path
+                d="M2.00098 20.0005C2.00098 17.0005 5.00098 11.0005 2.00098 2.00055M9.50098 23.5005C13.8343 19.3339 22.701 9.20055 23.501 2.00055M12.501 30.5005C15.1676 30.5005 22.301 29.1005 29.501 23.5005"
+                stroke="#88D6D9"
+                strokeWidth="4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="hero-anim-draw"
+                style={{ animationDelay: "460ms" }}
+              />
+            </svg>
+          </span>
+          <br />
+          <span className="-mb-[0.3em] block overflow-hidden">
+            <span
+              className="hero-anim-mask inline-block pb-[0.3em]"
+              style={{ animationDelay: "560ms" }}
+            >
+              Product Designer
+            </span>
+          </span>
+        </h1>
+
+        <p
+          className="hero-anim-rise mt-8 max-w-3xl text-lg leading-relaxed text-ink md:text-xl"
+          style={{ animationDelay: "680ms" }}
+        >
+          I create thoughtful digital experiences by transforming complexity
+          into intuitive products that help people understand, navigate and
+          make confident decisions.
+        </p>
+
+        <p
+          className="hero-anim-rise mt-5 text-sm text-muted md:text-base"
+          style={{ animationDelay: "800ms" }}
+        >
+          Creative Designer @ Woolworths • Master of Interaction Design, UTS
+        </p>
+
+        <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+          {heroTags.map((tag, index) => (
+            <span
+              key={tag}
+              className="hero-anim-rise inline-flex items-center rounded-md border border-border bg-bg px-3.5 py-2 text-[11px] font-semibold uppercase tracking-wider text-ink"
+              style={{ animationDelay: `${870 + index * 85}ms` }}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
       </div>
     </section>
   );
