@@ -50,7 +50,9 @@
       "Bash(npx next *)",
       "Bash(cp '03 - 1.png' /Users/annylam/Desktop/an-ny-portfolio-home/public/images/work/woolworths-internal-products/project-03-solution-1.png)",
       "Bash(cp '03 - 2.png' /Users/annylam/Desktop/an-ny-portfolio-home/public/images/work/woolworths-internal-products/project-03-solution-2.png)",
-      "Bash(cp '03 - 3.png' /Users/annylam/Desktop/an-ny-portfolio-home/public/images/work/woolworths-internal-products/project-03-solution-3.png)"
+      "Bash(cp '03 - 3.png' /Users/annylam/Desktop/an-ny-portfolio-home/public/images/work/woolworths-internal-products/project-03-solution-3.png)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }
