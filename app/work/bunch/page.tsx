@@ -3,6 +3,7 @@ import Image from "next/image";
 import CaseStudyHero from "@/components/work/CaseStudyHero";
 import PhaseSectionHeader from "@/components/work/PhaseSectionHeader";
 import ProjectGrid from "@/components/work/ProjectGrid";
+import BeforeAfterPair from "@/components/work/BeforeAfterPair";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
 import { selectedWork } from "@/lib/projects";
@@ -223,28 +224,35 @@ export default function BunchPage() {
             </Reveal>
           </div>
 
-          <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2">
-            <Reveal variant="image">
-              <Eyebrow variant="muted">Before</Eyebrow>
-              <Image
-                src="/images/work/bunch/part01-1-before.png"
-                width={549}
-                height={749}
-                alt="Before: a plain sample-claim confirmation screen showing the item added to the member's Everyday Rewards card"
-                className="mt-4 h-auto w-[71%]"
-              />
-            </Reveal>
-            <Reveal variant="image" delay={100}>
-              <Eyebrow variant="muted">After</Eyebrow>
-              <Image
-                src="/images/work/bunch/part01-1-after.png"
-                width={1217}
-                height={927}
-                alt="After: a redesigned 'Claimed Successfully' confirmation that surfaces related recipe and article cards to encourage further exploration"
-                className="mt-4 h-auto w-full"
-              />
-            </Reveal>
-          </div>
+          <BeforeAfterPair
+            className="mt-10"
+            before={{
+              images: [
+                {
+                  src: "/images/work/bunch/part01-1-before.png",
+                  width: 549,
+                  height: 749,
+                  alt: "Before: a plain sample-claim confirmation screen showing the item added to the member's Everyday Rewards card",
+                },
+              ],
+              // Before's canvas is a tight crop of just the card; After's
+              // canvas is wider because it also bakes in the annotation
+              // callouts to the right of the card, so at equal container
+              // widths Before renders larger than After's actual card.
+              // Scale Before down to match After's ~71%-of-canvas card width.
+              contentScale: 0.71,
+            }}
+            after={{
+              images: [
+                {
+                  src: "/images/work/bunch/part01-1-after.png",
+                  width: 1217,
+                  height: 927,
+                  alt: "After: a redesigned 'Claimed Successfully' confirmation that surfaces related recipe and article cards to encourage further exploration",
+                },
+              ],
+            }}
+          />
 
           <div className="mt-10">
             <Reveal variant="paragraph">
@@ -412,54 +420,40 @@ export default function BunchPage() {
             </h3>
           </Reveal>
 
-          <div className="mt-8">
-            <Reveal variant="paragraph">
-              <Eyebrow variant="muted">Before</Eyebrow>
-              <p className="mt-4 text-lg text-ink">
-                The existing homepage primarily functioned as a chronological
-                content feed.
-              </p>
-            </Reveal>
-            <Reveal variant="image" delay={100} className="mt-6">
-              <Image
-                src="/images/work/bunch/part02-1-before.png"
-                width={1509}
-                height={1164}
-                alt="Existing Bunch homepage showing a chronological feed of articles and recipes"
-                className="h-auto w-full"
-              />
-            </Reveal>
-          </div>
-
-          <div className="mt-10">
-            <Reveal variant="paragraph">
-              <Eyebrow variant="muted">After</Eyebrow>
-              <p className="mt-4 text-lg text-ink">
-                The redesigned dashboard instead adapts to each member&apos;s
-                goals by surfacing personalised recommendations, pending
-                reviews, popular discussions, community achievements,
-                cooking inspiration, etc.
-              </p>
-            </Reveal>
-            <Reveal variant="image" delay={100} className="mt-6">
-              <Image
-                src="/images/work/bunch/part02-1-after-1.png"
-                width={1509}
-                height={1164}
-                alt="Redesigned Bunch dashboard hero with a recipe-sharing banner, personalised greeting, bunch box status and popular topics"
-                className="h-auto w-full"
-              />
-            </Reveal>
-            <Reveal variant="image" delay={150} className="mt-6">
-              <Image
-                src="/images/work/bunch/part02-1-after-2.png"
-                width={1509}
-                height={1278}
-                alt="Redesigned Bunch dashboard continued, showing trending community discussions, member progress badges and pending reviews"
-                className="h-auto w-full"
-              />
-            </Reveal>
-          </div>
+          <BeforeAfterPair
+            layout="stacked"
+            className="mt-8"
+            before={{
+              description:
+                "The existing homepage primarily functioned as a chronological content feed.",
+              images: [
+                {
+                  src: "/images/work/bunch/part02-1-before.png",
+                  width: 1509,
+                  height: 1164,
+                  alt: "Existing Bunch homepage showing a chronological feed of articles and recipes",
+                },
+              ],
+            }}
+            after={{
+              description:
+                "The redesigned dashboard instead adapts to each member's goals by surfacing personalised recommendations, pending reviews, popular discussions, community achievements, cooking inspiration, etc.",
+              images: [
+                {
+                  src: "/images/work/bunch/part02-1-after-1.png",
+                  width: 1509,
+                  height: 1164,
+                  alt: "Redesigned Bunch dashboard hero with a recipe-sharing banner, personalised greeting, bunch box status and popular topics",
+                },
+                {
+                  src: "/images/work/bunch/part02-1-after-2.png",
+                  width: 1509,
+                  height: 1278,
+                  alt: "Redesigned Bunch dashboard continued, showing trending community discussions, member progress badges and pending reviews",
+                },
+              ],
+            }}
+          />
         </div>
 
         <div className="mt-16 md:mt-20">

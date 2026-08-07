@@ -9,16 +9,46 @@ design for An Ny Lam's product design portfolio. Home and About pages are built.
 Of the 6 case-study pages under `/work/*`, `work/woolworths-internal-products`
 and `work/bunch` are complete; the other 4 (RealSwipe, Echo Archive, Diamond
 Roofing, How the Body Remembers, HobbyLink) are linked to but not yet
-implemented (404 by design at this stage).
+implemented (404 by design at this stage). **RealSwipe is the natural next
+page to build** — no work has started on it yet.
 
 **Reference case studies:** `PROGRESS.md` at the repo root tracks the
 Woolworths Internal Products page's pass-by-pass build history, the source
 Figma/asset file mapping, and content research — useful as a worked example
 of the case-study conventions (layout patterns, image-treatment decisions,
-`CaseStudyHero`/`CaseStudyNav` usage) when building the remaining pages,
-including Bunch, which reused and extended this pattern (see
-`app/work/bunch/page.tsx` and the `CaseStudyHero` `subtitle`/optional-`intro`/
-optional-`disclaimer` props it added for a differently-shaped hero).
+`CaseStudyHero`/`CaseStudyNav` usage) when building the remaining pages.
+`app/work/bunch/page.tsx` is a second worked example, and is where several
+of the shared case-study components below (`CaseStudyHero`'s flexible props,
+`BeforeAfterPair`) were introduced or generalized — read it alongside
+Woolworths when starting a new page, since between the two of them most
+layout patterns a new case study needs already have precedent.
+
+### Current status / next steps (as of this session)
+
+Done this session, beyond the Bunch page build itself:
+- Generalized `CaseStudyHero` (see Architecture below) so it fits pages whose
+  hero doesn't match Woolworths' exact shape.
+- Made `CaseStudyNav`'s pill-to-anchor scrolling JS-driven instead of relying
+  on global CSS (see Motion conventions) — fixes route changes snapping
+  instantly to the top instead of visibly scrolling up from wherever the
+  previous page was scrolled to.
+- Made `ProjectCard` tags always `variant="outline"` (transparent background)
+  — this now applies to every project card sitewide (Home's Selected
+  Work/Other Explorations grids and every case study's Next Projects grid).
+- Built `BeforeAfterPair` (see Content/assets below) after finding two
+  different before/after image-sizing bugs on the Bunch page, and used it to
+  replace both of Bunch's hand-rolled before/after blocks.
+
+Not done / still open:
+- RealSwipe, Echo Archive, Diamond Roofing, How the Body Remembers, HobbyLink
+  case studies are unbuilt.
+- Woolworths Internal Products doesn't use a labeled Before/After *pair*
+  pattern anywhere (it only has standalone "Before" spreadsheet screenshots,
+  each followed later by a separate "Final Experience" section rather than a
+  directly adjacent "After") — so `BeforeAfterPair` doesn't apply there and
+  there was nothing to retrofit. Keep this in mind if that page's structure
+  changes later: only true side-by-side/stacked Before+After comparisons need
+  the component and its scale-mismatch check, not every "Before" label.
 
 ## Commands
 
@@ -44,7 +74,34 @@ There is no test suite configured in this repo.
   case-study card/grid, driven entirely by `Project` objects — intended to be reused
   by future `/work/*` pages as well as the home page's two grids (`columns`/`size`
   props control layout density: 2-col/large for Selected Work, 3-col/small for Other
-  Explorations).
+  Explorations). Tags always render `variant="outline"` (transparent background) —
+  `Tag`'s `solid` variant still exists but nothing currently uses it; don't
+  reintroduce it without a specific reason, since transparent tags are now the
+  sitewide convention, not a one-off.
+- **`components/work/CaseStudyHero.tsx`** props are more flexible than they
+  look at first read, to fit hero layouts that don't match Woolworths' exact
+  shape: `subtitle` renders under the title in the left column (for case
+  studies like Bunch whose title has a one-line subtitle attached, rather
+  than a separate `intro` paragraph next to the meta table); `intro` and
+  `disclaimer` are both optional and simply don't render their block when
+  omitted (Bunch has neither). Check a new case study's Figma hero against
+  both patterns before assuming the Woolworths layout is the only shape.
+- **`components/work/BeforeAfterPair.tsx`** renders a labeled Before/After
+  image comparison, in `layout="side-by-side"` (two columns, e.g. two phone
+  mockups — the default) or `layout="stacked"` (full-width sections one
+  after another, e.g. two desktop screenshots, or an "after" side with
+  multiple images). **Before using it for a new pair, visually compare each
+  side's source screenshot: does the actual UI card/screen fill the whole
+  canvas, or does the canvas also bake in annotation arrows/labels (or extra
+  margin) alongside it?** If only one side has that extra baked-in padding,
+  rendering both sides at the same container width makes the padded side's
+  real content look smaller than its counterpart — set that side's
+  `contentScale` (a fraction of its column width, e.g. `0.71`) to compensate.
+  Estimate the value by measuring where the actual UI content ends within the
+  padded canvas (e.g. via a quick Python/PIL alpha-scan) rather than
+  guessing, then verify with a side-by-side screenshot that the two cards
+  now match in size. Default (`contentScale: 1`, both sides) means neither
+  canvas needs adjustment — most pairs won't need this prop at all.
 - **`components/layout/`** holds the shared chrome: `SiteHeader`, `SiteFooter`,
   `ContactBanner`.
 - **`components/home/`** holds home-page-only sections (`Hero`,
@@ -80,9 +137,9 @@ There is no test suite configured in this repo.
   treatments follow their own established radii (`rounded-2xl` for hero
   banners, `rounded-xl`/`rounded-lg` for card thumbnails). If a Figma frame
   shows a sharp-cornered block, round it anyway to match this system — this
-  applies to the not-yet-built case-study pages (Bunch, RealSwipe, Echo
-  Archive, Diamond Roofing, How the Body Remembers, HobbyLink) as much as to
-  what's already built.
+  applies to the not-yet-built case-study pages (RealSwipe, Echo Archive,
+  Diamond Roofing, How the Body Remembers, HobbyLink) as much as to what's
+  already built.
 
 ## Motion conventions
 
@@ -118,6 +175,17 @@ There is no test suite configured in this repo.
     pre-reveal inline transform — creates a new containing block for fixed
     descendants and silently breaks the sticky nav's viewport positioning.
     Wrap `CaseStudyHero`'s other children individually instead.
+- **Smooth scrolling is JS-driven per-click, not global CSS.** `app/globals.css`
+  does *not* set `html { scroll-behavior: smooth }` — it was tried early on but
+  made route changes (e.g. Home → a case study) visibly scroll up from
+  wherever the previous page had been scrolled to, instead of snapping
+  instantly to the top of the new page. Instead, `CaseStudyNav`'s pill links
+  call `element.scrollIntoView({ behavior: 'smooth' | 'auto', block: 'start' })`
+  directly in an `onClick` handler (falling back to `'auto'` under
+  `prefers-reduced-motion`, matching `Reveal`'s convention) and update the URL
+  via `history.pushState` rather than a native hash navigation. If a future
+  page needs another in-page anchor-jump control, follow this same
+  JS-per-click pattern rather than reaching for global `scroll-behavior`.
 
 ## Content/assets
 
@@ -126,6 +194,19 @@ There is no test suite configured in this repo.
   `CreativitySection`.
 - Image dimensions in `Project` objects (`imageWidth`/`imageHeight`) must match the
   actual asset dimensions — they're passed directly to `next/image`.
+- **A visible border around a screenshot/mockup asset may be baked into the
+  PNG's pixels, not a CSS border you added.** Before assuming a border needs
+  a CSS fix, zoom into a corner of the source asset — if the stroke is part
+  of the raster image (common on Figma card exports), removing it means
+  editing the asset, not the component. The approach used for Bunch's
+  `part01-3-initiatives.png`: erode the image's alpha-opaque mask inward by a
+  few px (`scipy.ndimage.binary_erosion`), then for every pixel in that outer
+  ring, replace its RGB with the nearest pixel *inside* the eroded mask
+  (`scipy.ndimage.distance_transform_edt(..., return_indices=True)`) — this
+  recolors just the border ring to blend into the card's interior fill
+  without touching alpha (so the card's rounded shape is unchanged) or any
+  interior illustration content (which sits well inside the erosion margin).
+  Re-export and replace the asset in `public/images/work/<slug>/`.
 
 <!-- BEGIN:nextjs-agent-rules -->
 
