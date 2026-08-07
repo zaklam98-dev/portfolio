@@ -12,7 +12,7 @@ export default function AboutHero() {
             <span className="relative inline-block">
               <span
                 className="hero-anim-group-settle inline-block text-teal"
-                style={{ animationDelay: "400ms" }}
+                style={{ animationDelay: "980ms" }}
               >
                 <span className="hero-anim-letter inline-block" style={{ animationDelay: "120ms" }}>
                   A
@@ -45,7 +45,7 @@ export default function AboutHero() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   className="hero-anim-draw"
-                  style={{ animationDelay: "430ms" }}
+                  style={{ animationDelay: "980ms" }}
                 />
               </svg>
             </span>
@@ -60,7 +60,7 @@ export default function AboutHero() {
           </p>
 
           <span
-            className="hero-anim-pop mt-7 inline-flex items-center rounded-full border border-border bg-bg px-5 py-2 text-base text-muted"
+            className="hero-anim-rise mt-7 inline-flex items-center rounded-full border border-border bg-bg px-5 py-2 text-base text-muted"
             style={{ animationDelay: "680ms" }}
           >
             Based in Sydney
