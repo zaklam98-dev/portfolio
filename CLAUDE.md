@@ -6,11 +6,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Next.js (App Router) / React 19 / TypeScript / Tailwind CSS rebuild of a Figma
 design for An Ny Lam's product design portfolio. Home and About pages are built.
-Of the 6 case-study pages under `/work/*`, `work/woolworths-internal-products`
-and `work/bunch` are complete; the other 4 (RealSwipe, Echo Archive, Diamond
-Roofing, How the Body Remembers, HobbyLink) are linked to but not yet
-implemented (404 by design at this stage). **RealSwipe is the natural next
-page to build** — no work has started on it yet.
+Of the 7 case-study pages under `/work/*` (see `lib/projects.ts`),
+`work/woolworths-internal-products`, `work/bunch` and `work/realswipe` are
+complete; the other 4 (Echo Archive, Diamond Roofing, How the Body Remembers,
+HobbyLink) are linked to but not yet implemented (404 by design at this
+stage). **Echo Archive is the natural next page to build** — no work has
+started on it yet.
 
 **Reference case studies:** `PROGRESS.md` at the repo root tracks the
 Woolworths Internal Products page's pass-by-pass build history, the source
@@ -25,7 +26,21 @@ layout patterns a new case study needs already have precedent.
 
 ### Current status / next steps (as of this session)
 
-Done this session, beyond the Bunch page build itself:
+Done this session: built `app/work/realswipe/page.tsx` end-to-end (Research
+through Reflection/Next Projects), using `app/work/bunch/page.tsx` as the
+structural reference. One deviation from precedent worth flagging: the
+RealSwipe source assets (`~/Desktop/portfolio_images/RealSwipe/`) are
+pre-annotated exports — each Before/After screenshot already has its own
+baked-in "BEFORE"/"AFTER" label and hand-drawn callout arrows explaining the
+UX change, unlike Woolworths/Bunch's clean crops. Using `BeforeAfterPair`
+on these would have doubled up the label (component renders its own Eyebrow
+label above the image). Rendered them as a plain `Reveal`+`Image` two-column
+grid instead (no shared component) — this is now the precedent for any other
+not-yet-built case study whose source exports turn out to be pre-annotated
+the same way; check `BeforeAfterPair`'s doc comment against the actual asset
+first rather than assuming it fits every Before/After pair.
+
+Previous session, beyond the Bunch page build itself:
 - Generalized `CaseStudyHero` (see Architecture below) so it fits pages whose
   hero doesn't match Woolworths' exact shape.
 - Made `CaseStudyNav`'s pill-to-anchor scrolling JS-driven instead of relying
@@ -40,8 +55,8 @@ Done this session, beyond the Bunch page build itself:
   replace both of Bunch's hand-rolled before/after blocks.
 
 Not done / still open:
-- RealSwipe, Echo Archive, Diamond Roofing, How the Body Remembers, HobbyLink
-  case studies are unbuilt.
+- Echo Archive, Diamond Roofing, How the Body Remembers, HobbyLink case
+  studies are unbuilt.
 - Woolworths Internal Products doesn't use a labeled Before/After *pair*
   pattern anywhere (it only has standalone "Before" spreadsheet screenshots,
   each followed later by a separate "Final Experience" section rather than a
@@ -137,9 +152,9 @@ There is no test suite configured in this repo.
   treatments follow their own established radii (`rounded-2xl` for hero
   banners, `rounded-xl`/`rounded-lg` for card thumbnails). If a Figma frame
   shows a sharp-cornered block, round it anyway to match this system — this
-  applies to the not-yet-built case-study pages (RealSwipe, Echo Archive,
-  Diamond Roofing, How the Body Remembers, HobbyLink) as much as to what's
-  already built.
+  applies to the not-yet-built case-study pages (Echo Archive, Diamond
+  Roofing, How the Body Remembers, HobbyLink) as much as to what's already
+  built.
 
 ## Motion conventions
 

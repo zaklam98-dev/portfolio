@@ -224,35 +224,15 @@ export default function BunchPage() {
             </Reveal>
           </div>
 
-          <BeforeAfterPair
-            className="mt-10"
-            before={{
-              images: [
-                {
-                  src: "/images/work/bunch/part01-1-before.png",
-                  width: 549,
-                  height: 749,
-                  alt: "Before: a plain sample-claim confirmation screen showing the item added to the member's Everyday Rewards card",
-                },
-              ],
-              // Before's canvas is a tight crop of just the card; After's
-              // canvas is wider because it also bakes in the annotation
-              // callouts to the right of the card, so at equal container
-              // widths Before renders larger than After's actual card.
-              // Scale Before down to match After's ~71%-of-canvas card width.
-              contentScale: 0.71,
-            }}
-            after={{
-              images: [
-                {
-                  src: "/images/work/bunch/part01-1-after.png",
-                  width: 1217,
-                  height: 927,
-                  alt: "After: a redesigned 'Claimed Successfully' confirmation that surfaces related recipe and article cards to encourage further exploration",
-                },
-              ],
-            }}
-          />
+          <Reveal variant="image" className="mt-10">
+            <Image
+              src="/images/work/bunch/part01-1.png"
+              width={1841}
+              height={1017}
+              alt="Before/after: a plain sample-claim confirmation screen showing the item added to the member's Everyday Rewards card, versus a redesigned 'Claimed Successfully' confirmation that surfaces related recipe and article cards to encourage further exploration"
+              className="h-auto w-full"
+            />
+          </Reveal>
 
           <div className="mt-10">
             <Reveal variant="paragraph">
@@ -324,7 +304,7 @@ export default function BunchPage() {
               width={1407}
               height={959}
               alt="Comments panel with a pinned moderator comment explaining how to claim a sample, kept visible above regular member replies"
-              className="h-auto w-full"
+              className="mx-auto h-auto w-[65%]"
             />
           </Reveal>
 
@@ -434,6 +414,7 @@ export default function BunchPage() {
                   alt: "Existing Bunch homepage showing a chronological feed of articles and recipes",
                 },
               ],
+              contentScale: 0.8,
             }}
             after={{
               description:
@@ -452,6 +433,7 @@ export default function BunchPage() {
                   alt: "Redesigned Bunch dashboard continued, showing trending community discussions, member progress badges and pending reviews",
                 },
               ],
+              contentScale: 0.8,
             }}
           />
         </div>
@@ -486,7 +468,7 @@ export default function BunchPage() {
               width={1632}
               height={694}
               alt="'Make this recipe with' shopping module showing four matched Woolworths products and a 'Shop recipe on Woolworths' button"
-              className="h-auto w-full"
+              className="mx-auto h-auto w-4/5"
             />
           </Reveal>
         </div>
@@ -513,7 +495,7 @@ export default function BunchPage() {
               width={1728}
               height={406}
               alt="Roadmap timeline of four pillars: Discover, Cook, Shop and Connect, each with a short description of its goal"
-              className="h-auto w-full"
+              className="mx-auto h-auto w-4/5"
             />
           </Reveal>
         </div>

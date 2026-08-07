@@ -66,7 +66,7 @@ function SideImages({
             width={image.width}
             height={image.height}
             alt={image.alt}
-            className="h-auto"
+            className="mx-auto block h-auto"
             style={{ width: `${contentScale * 100}%` }}
           />
         </Reveal>
