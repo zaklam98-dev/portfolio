@@ -5,13 +5,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## What this is
 
 Next.js (App Router) / React 19 / TypeScript / Tailwind CSS rebuild of a Figma
-design for An Ny Lam's product design portfolio. Home and About pages are built.
-Of the 7 case-study pages under `/work/*` (see `lib/projects.ts`),
-`work/woolworths-internal-products`, `work/bunch` and `work/realswipe` are
-complete; the other 4 (Echo Archive, Diamond Roofing, How the Body Remembers,
-HobbyLink) are linked to but not yet implemented (404 by design at this
-stage). **Echo Archive is the natural next page to build** — no work has
-started on it yet.
+design for An Ny Lam's product design portfolio. Home and About pages are
+built, and **all 7 case-study pages under `/work/*`** (see `lib/projects.ts`)
+are built — there is no unbuilt page left. `work/hobbylink` is itself a
+"coming soon" placeholder *by design* (its own Figma source is just a hero +
+challenge/concept blurb + a disclaimer note saying the full case study is in
+progress) — that's not a gap to fill, it's the actual current source design.
 
 **Reference case studies:** `PROGRESS.md` at the repo root tracks the
 Woolworths Internal Products page's pass-by-pass build history, the source
@@ -26,21 +25,133 @@ layout patterns a new case study needs already have precedent.
 
 ### Current status / next steps (as of this session)
 
-Done this session: built `app/work/realswipe/page.tsx` end-to-end (Research
-through Reflection/Next Projects), using `app/work/bunch/page.tsx` as the
-structural reference. One deviation from precedent worth flagging: the
-RealSwipe source assets (`~/Desktop/portfolio_images/RealSwipe/`) are
-pre-annotated exports — each Before/After screenshot already has its own
-baked-in "BEFORE"/"AFTER" label and hand-drawn callout arrows explaining the
-UX change, unlike Woolworths/Bunch's clean crops. Using `BeforeAfterPair`
-on these would have doubled up the label (component renders its own Eyebrow
-label above the image). Rendered them as a plain `Reveal`+`Image` two-column
-grid instead (no shared component) — this is now the precedent for any other
-not-yet-built case study whose source exports turn out to be pre-annotated
-the same way; check `BeforeAfterPair`'s doc comment against the actual asset
-first rather than assuming it fits every Before/After pair.
+Done this session: built `app/work/hobbylink/page.tsx` — the last unbuilt
+case study, so **all 7 `/work/*` pages are now complete.** Its Figma source
+is intentionally short: hero (image → title/subtitle+meta, the normal
+`CaseStudyHero` order, no nav pills — same `navItems` omission as Diamond
+Roofing) → a "Full case study coming soon" note → The Challenge → The
+Concept → Next Projects. That disclaimer note rendered via
+`CaseStudyHero`'s existing `disclaimer` prop with zero new markup — its
+gray-box-plus-warning-triangle treatment is pixel-for-pixel what the Figma
+showed. Next Projects excludes RealSwipe (same curated 3-item allowlist
+pattern as Diamond Roofing, for the same reason: HobbyLink isn't in
+`selectedWork` so the self-exclude filter doesn't apply).
 
-Previous session, beyond the Bunch page build itself:
+Also this session, two follow-up fixes to `how-the-body-remembers` after
+the initial build (both from direct user feedback, not part of the initial
+build pass — worth knowing if similar patterns come up elsewhere):
+- A flexbox `min-width: auto` bug in the Probe Kit cards: an `<Image>` with
+  `flex-1` still refuses to shrink below its own `width` attribute (its
+  intrinsic content size) unless the flex item *and* the image both also
+  get `min-w-0`. Without it, images rendered at full raw pixel width and
+  overflowed their card. Any future text+image flex row sized with
+  `flex-1`/percentage `basis` needs `min-w-0` on both the flex container
+  and the image, not just a `w-full` on the image — `w-full` alone doesn't
+  override the flex min-size floor.
+- `IconCard` (`components/work/IconCard.tsx`) gained two optional props,
+  `iconSize` (default 24, so Woolworths' existing philosophy-card usage is
+  unaffected) and `className` (appended to the root card, for background
+  overrides like HTBR's Findings/What-Changed cards at `bg-[#FDFCF9]`).
+  Reach for these before hardcoding a one-off variant of `IconCard`
+  elsewhere.
+
+Previous session: built `app/work/how-the-body-remembers/page.tsx`
+end-to-end (Overview → Phase 1/2/3 → Opportunity → Reflection/Next
+Projects). Two things worth flagging:
+- This is the first case study whose **hero doesn't put the image first**.
+  Every other page's hero is `image → title/subtitle+meta grid` (that fixed
+  order is `CaseStudyHero`'s whole structure); this one's Figma is
+  `title/subtitle → image → paragraphs+meta grid`. Rather than adding an
+  `imagePosition` prop to `CaseStudyHero` for a single one-off order swap,
+  the hero was hand-rolled directly in the page using `MetaTable` +
+  `CaseStudyNav` + `Reveal` (the same primitives `CaseStudyHero` composes
+  internally) rather than the component itself. If a future page needs this
+  same reordered shape too, *then* it's worth promoting into a
+  `CaseStudyHero` prop — one occurrence isn't.
+- Several sections needed icons this project doesn't have SVG assets for
+  (a 5-step methodology timeline, 6 findings cards, a Background/Research
+  Questions pair). Used emoji glyphs matching the source Figma's icon
+  shapes (🔍💬🎙️📝✨ etc.), the same fallback `app/work/bunch/page.tsx`
+  already established for its "Impact At A Glance" row — reach for emoji
+  before inventing new SVGs when a case study's icons weren't exported.
+- Two small pieces of hero/meta copy were obscured behind the nav-pill
+  overlay in the source screenshot (same recurring issue as Echo Archive):
+  the `Methods` meta row's last two items, and a sentence in the intro
+  paragraph. Reconstructed both from visible line fragments plus matching
+  phrases used elsewhere in the same case study's copy — reasonably
+  confident, worth a quick check against the source Figma if available.
+
+Earlier session: built `app/work/diamond-roofing/page.tsx` end-to-end.
+This is an **Other Exploration**, not a Selected Work case study, and its
+Figma source is visual-portfolio-shaped rather than UX-process-shaped (no
+Research/Solution/Reflection narrative — just Logo Concept → Colour
+Palette/Typography → Brand Applications → Website Design → Mobile
+Experience → Next Projects). Two things worth flagging:
+- Its hero has **no pill nav** at all (single-scroll page, no in-page
+  anchors in the source). `CaseStudyHero`'s `navItems` prop is now optional
+  — omitting it skips rendering `CaseStudyNav` entirely rather than showing
+  an empty pill row. Check for this before assuming every case study needs
+  nav pills.
+- Its hero mockup (laptop + phone + mug on a desk) **wasn't exported as a
+  separate asset** — unlike every other case study so far, there was no
+  `Hero.png` equivalent in `~/Desktop/portfolio_images/Diamond Roofing/`.
+  Recovered it by cropping the region directly out of the flattened
+  `~/Desktop/portfolio_figma/Diamond Roofing.png` screenshot with PIL
+  (saved to `public/images/work/diamond-roofing/hero.png`) — the same
+  "recover from the flattened screenshot" fallback CLAUDE.md already
+  documents for obscured/missing text, extended here to a missing image
+  asset. Check the asset folder for a hero-shaped file first, but don't
+  assume one always exists.
+- Its "Next Projects" row (Woolworths Internal Products, Woolworths •
+  Bunch, Echo Archive — RealSwipe excluded) doesn't match the
+  `selectedWork.filter(href !== self)` pattern every other case study uses,
+  because Diamond Roofing isn't *in* `selectedWork` (it's an Other
+  Exploration) so nothing would auto-exclude. Filtered by an explicit href
+  allowlist instead, matching the curated set shown in the source design.
+
+Earlier session: built `app/work/echo-archive/page.tsx` end-to-end
+(Research → Solution → Experience Walkthrough → Reflection/Next Projects).
+Two things worth flagging:
+- Echo Archive's Figma source uses a **different heading convention** than
+  Woolworths/Bunch/RealSwipe: its Research subsections use the usual
+  `Eyebrow variant="muted"` label pattern, but its Solution/Experience
+  Walkthrough/Reflection section headers are plain large bold `h2`/`h3` text
+  with **no** small eyebrow label above them (no `PhaseSectionHeader`, which
+  requires an eyebrow). Rendered those as plain `<h2>`/`<h3>` matching
+  `PhaseSectionHeader`'s title classes rather than forcing the eyebrow
+  pattern — check each new case study's actual Figma heading treatment
+  rather than assuming every page eyebrows every section.
+- Several of Echo Archive's source assets
+  (`~/Desktop/portfolio_images/Echo Archive/`) are **fully-composed card
+  graphics** — icon, title, copy and mockup all flattened into one PNG
+  (`Cards*.png` for the four "emotional companion" cards, `1.png`–`6.png`
+  for the Experience Walkthrough steps, filenames not in visual order —
+  matched by content, not number). Rendered these as plain `Image`s rather
+  than rebuilding their text/icons in JSX; don't try to extract "real"
+  copy out of a card image that's already a finished design artifact.
+
+Previous session: built `app/work/realswipe/page.tsx` end-to-end, using
+`app/work/bunch/page.tsx` as the structural reference. RealSwipe's source
+assets (`~/Desktop/portfolio_images/RealSwipe/`) were pre-annotated exports —
+each Before/After screenshot had its own baked-in "BEFORE"/"AFTER" label and
+hand-drawn callout arrows, unlike Woolworths/Bunch's clean crops — so those
+pairs were rendered as a plain `Reveal`+`Image` grid instead of
+`BeforeAfterPair` (which would have doubled the label). Later in that same
+session, the RealSwipe founder supplied newer **combined** before/after
+images (one PNG per solution showing both states together) which replaced
+the split before/after images entirely, and the "View solution 0X" links
+were removed from the Key Insights cards (now plain description boxes) —
+`app/work/realswipe/page.tsx` reflects this current state, not the
+originally-built one. The same session also replaced Bunch's Part 01
+sample-claim `BeforeAfterPair` with a single combined image
+(`part01-1.png`) for the same reason, and resized/centered a few Bunch
+images per direct request (`part01-2-comments.png` to 65% width,
+`BeforeAfterPair`'s `contentScale`/centering used for Part 02's images at
+80%) — `BeforeAfterPair` now only has one remaining usage sitewide (Bunch
+Part 02's stacked pair) and its `SideImages` image is always centered
+(`mx-auto block`) so a `contentScale < 1` doesn't render left-aligned.
+
+Earlier session, beyond the Bunch page build itself:
 - Generalized `CaseStudyHero` (see Architecture below) so it fits pages whose
   hero doesn't match Woolworths' exact shape.
 - Made `CaseStudyNav`'s pill-to-anchor scrolling JS-driven instead of relying
@@ -54,9 +165,7 @@ Previous session, beyond the Bunch page build itself:
   different before/after image-sizing bugs on the Bunch page, and used it to
   replace both of Bunch's hand-rolled before/after blocks.
 
-Not done / still open:
-- Echo Archive, Diamond Roofing, How the Body Remembers, HobbyLink case
-  studies are unbuilt.
+Other notes:
 - Woolworths Internal Products doesn't use a labeled Before/After *pair*
   pattern anywhere (it only has standalone "Before" spreadsheet screenshots,
   each followed later by a separate "Final Experience" section rather than a
@@ -99,8 +208,11 @@ There is no test suite configured in this repo.
   studies like Bunch whose title has a one-line subtitle attached, rather
   than a separate `intro` paragraph next to the meta table); `intro` and
   `disclaimer` are both optional and simply don't render their block when
-  omitted (Bunch has neither). Check a new case study's Figma hero against
-  both patterns before assuming the Woolworths layout is the only shape.
+  omitted (Bunch has neither). `navItems` is also optional — omit it for a
+  case study whose Figma hero has no pill nav (Diamond Roofing) and
+  `CaseStudyNav` doesn't render at all, rather than rendering an empty pill
+  row. Check a new case study's Figma hero against all these patterns
+  before assuming the Woolworths layout is the only shape.
 - **`components/work/BeforeAfterPair.tsx`** renders a labeled Before/After
   image comparison, in `layout="side-by-side"` (two columns, e.g. two phone
   mockups — the default) or `layout="stacked"` (full-width sections one
@@ -151,10 +263,7 @@ There is no test suite configured in this repo.
   for these bordered block containers, matching `ProjectGrid`'s wrapper. Image
   treatments follow their own established radii (`rounded-2xl` for hero
   banners, `rounded-xl`/`rounded-lg` for card thumbnails). If a Figma frame
-  shows a sharp-cornered block, round it anyway to match this system — this
-  applies to the not-yet-built case-study pages (Echo Archive, Diamond
-  Roofing, How the Body Remembers, HobbyLink) as much as to what's already
-  built.
+  shows a sharp-cornered block, round it anyway to match this system.
 
 ## Motion conventions
 

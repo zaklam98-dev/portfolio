@@ -28,7 +28,10 @@ type CaseStudyHeroProps = {
    * studies that don't pair the meta table with a separate intro (e.g.
    * Bunch, which uses `subtitle` under the title instead). */
   intro?: string;
-  navItems: NavItem[];
+  /** Omit for case studies whose Figma hero has no pill nav (e.g. shorter,
+   * single-scroll portfolio pieces like Diamond Roofing) — CaseStudyNav
+   * simply doesn't render rather than showing an empty pill row. */
+  navItems?: NavItem[];
   /** Omit for case studies with no confidentiality/anonymisation note. */
   disclaimer?: string;
 };
@@ -85,7 +88,7 @@ export default function CaseStudyHero({
       {/* CaseStudyNav is `fixed` — must stay outside any Reveal wrapper.
           A `transform` on an ancestor creates a new containing block for
           `position: fixed` descendants, which would break the sticky nav. */}
-      <CaseStudyNav items={navItems} />
+      {navItems && navItems.length > 0 && <CaseStudyNav items={navItems} />}
 
       {disclaimer && (
         <Reveal variant="default" delay={200} className="mt-10 md:mt-14">

@@ -1,0 +1,17 @@
+<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="36" height="36" rx="18" fill="#08492C"/>
+<mask id="mask0_131_4449" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="10" y="10" width="16" height="16">
+<path d="M25.5 25.5V10.5H10.5V25.5H25.5Z" fill="white" stroke="white"/>
+</mask>
+<g mask="url(#mask0_131_4449)">
+<path d="M24.875 24.876C25.28 24.4713 25.5303 23.9119 25.5303 23.2941V17.8497V12.706C25.5303 11.4703 24.5287 10.4688 23.2931 10.4688H12.705C12.0871 10.4688 11.5278 10.7191 11.123 11.1241" stroke="#FDFCF9" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M24.875 24.876L11.123 11.1241" stroke="#FDFCF9" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M22.7813 25.5312L10.4688 13.2187" stroke="#FDFCF9" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M20.0313 25.5312L10.4688 15.9687" stroke="#FDFCF9" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17.2813 25.5312L10.4688 18.7187" stroke="#FDFCF9" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M14.5313 25.5312L10.4688 21.4687" stroke="#FDFCF9" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M11.7813 25.5312L10.4688 24.2187" stroke="#FDFCF9" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M25.5315 18.281L21.8771 14.6265L18.252 18.2517" stroke="#FDFCF9" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M19.3898 13.5768C19.3898 14.3441 18.7678 14.9661 18.0006 14.9661C17.2333 14.9661 16.6113 14.3441 16.6113 13.5768C16.6113 12.8096 17.2333 12.1876 18.0006 12.1876C18.7678 12.1876 19.3898 12.8096 19.3898 13.5768Z" fill="#FDFCF9" stroke="#FDFCF9" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>
