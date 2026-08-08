@@ -91,3 +91,7 @@ export const otherExplorations: Project[] = [
     comingSoon: true,
   },
 ];
+
+/** All 7 case studies, selectedWork first — the single source for any nav
+ * or menu that lists every project (e.g. the header/footer "Work" dropdown). */
+export const allProjects: Project[] = [...selectedWork, ...otherExplorations];

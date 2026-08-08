@@ -1,4 +1,4 @@
-const heroTags = ["Product Design", "UX/UI", "Interaction Design", "Visual Design"];
+const heroTags = ["Systems Thinking", "AI-Assisted Design", "Craft-Driven"];
 
 export default function Hero() {
   return (

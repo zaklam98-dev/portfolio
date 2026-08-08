@@ -2,12 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Fragment } from "react";
 import Logo from "@/components/ui/Logo";
+import WorkDropdown from "@/components/layout/WorkDropdown";
+import { LINKEDIN_URL } from "@/lib/constants";
 
 const footerLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/an-ny-lam/", external: true },
+  { label: "LinkedIn", href: LINKEDIN_URL, external: true },
 ];
 
 export default function SiteFooter() {
@@ -29,20 +32,27 @@ export default function SiteFooter() {
             {footerLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    target={link.external ? "_blank" : undefined}
-                    rel={link.external ? "noopener noreferrer" : undefined}
-                    className={`text-sm transition-colors duration-200 ${
-                      isActive
-                        ? "font-semibold text-ink underline decoration-2 underline-offset-4"
-                        : "text-muted hover:text-ink"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
+                <Fragment key={link.label}>
+                  <li>
+                    <Link
+                      href={link.href}
+                      target={link.external ? "_blank" : undefined}
+                      rel={link.external ? "noopener noreferrer" : undefined}
+                      className={`text-sm transition-colors duration-200 ${
+                        isActive
+                          ? "font-semibold text-ink underline decoration-2 underline-offset-4"
+                          : "text-muted hover:text-ink"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                  {link.label === "Home" && (
+                    <li>
+                      <WorkDropdown direction="up" size="sm" />
+                    </li>
+                  )}
+                </Fragment>
               );
             })}
           </ul>

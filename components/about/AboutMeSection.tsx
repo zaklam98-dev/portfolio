@@ -3,7 +3,6 @@ import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
 
 const facts = [
-  { emoji: "🇻🇳", text: "Originally from Vietnam, now based in Sydney." },
   { emoji: "🛒", text: "Designing digital products at Woolworths since 2023." },
   { emoji: "🎓", text: "Completing a Master of Interaction Design at UTS (2025 - 2027)." },
   { emoji: "🧶", text: "Usually crocheting or painting when I'm away from Figma." },

@@ -157,6 +157,56 @@
   animation: heroDrawLarge 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+/* Email-copy feedback (components/ui/EmailLink.tsx) — a small one-shot
+   "Copied!" tooltip + button pulse, reusing the same spring easing as the
+   hero-anim-* system above for a consistent hand-tuned feel. Kept separate
+   from that system since it's a general micro-interaction, not part of a
+   page-load choreography. Both animations are pure CSS; React only mounts
+   the tooltip and applies the pulse class while `copied` is true, timed to
+   the 2s copy-confirmation window (see EmailLink's setTimeout). */
+@keyframes emailCopiedPulse {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes emailCopiedTooltip {
+  /* Tooltip sits below the email (top-full) — motion drifts down and away
+     on exit, mirroring how it'd drift up and away if it sat above. */
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -4px);
+  }
+  14% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  86% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 4px);
+  }
+}
+
+.email-copied-pulse {
+  animation: emailCopiedPulse 380ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.email-copied-tooltip {
+  /* 1800ms, slightly under EmailLink's 2000ms reset timeout, so the fade-out
+     finishes before React unmounts the tooltip rather than being cut off. */
+  animation: emailCopiedTooltip 1800ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 .hero-anim-mask {
   animation: heroMask 540ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }

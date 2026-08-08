@@ -1,3 +1,5 @@
+import EmailLink from "@/components/ui/EmailLink";
+
 export default function ContactHero() {
   return (
     <section className="container-content flex flex-col items-center py-24 text-center md:py-36">
@@ -16,7 +18,7 @@ export default function ContactHero() {
       </p>
 
       <div
-        className="hero-anim-rise mt-6 flex items-center gap-3 md:gap-5"
+        className="hero-anim-rise relative mt-6 flex items-center gap-3 md:gap-5"
         style={{ animationDelay: "280ms" }}
       >
         <svg
@@ -37,12 +39,7 @@ export default function ContactHero() {
             style={{ animationDelay: "280ms" }}
           />
         </svg>
-        <a
-          href="mailto:annylam.hi@gmail.com"
-          className="font-heading text-3xl font-extrabold tracking-tight text-ink transition-opacity hover:opacity-80 sm:text-4xl md:text-6xl"
-        >
-          annylam.hi<span className="text-teal">@</span>gmail.com
-        </a>
+        <EmailLink className="font-heading text-3xl font-extrabold tracking-tight sm:text-4xl md:text-6xl" />
       </div>
     </section>
   );

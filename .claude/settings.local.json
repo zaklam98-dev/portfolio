@@ -62,7 +62,9 @@
       "Bash(cp \"/Users/annylam/Desktop/portfolio_images/Home/Echo Archive.png\" echo-archive.png)",
       "Bash(cp \"/Users/annylam/Desktop/portfolio_images/Home/Diamond Roofing.png\" diamond-roofing.png)",
       "Bash(md5 diamond-roofing.png how-the-body-remembers.png hobbylink.png)",
-      "Bash(md5 \"Diamond Roofing.png\" \"How the body remembers.png\" \"HobbyLink.png\")"
+      "Bash(md5 \"Diamond Roofing.png\" \"How the body remembers.png\" \"HobbyLink.png\")",
+      "Bash(grep *)",
+      "Bash(curl -s http://localhost:3000/contact)"
     ]
   }
 }

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import EmailLink from "@/components/ui/EmailLink";
 
 export default function ContactBanner() {
   return (
@@ -7,7 +8,7 @@ export default function ContactBanner() {
         <p className="text-lg text-muted md:text-xl">
           Have an idea, a project, or just want to chat?
         </p>
-        <div className="mt-6 flex items-center gap-3 md:gap-5">
+        <div className="relative mt-6 flex items-center gap-3 md:gap-5">
           <Image
             src="/images/illustrations/squiggle-large.svg"
             alt=""
@@ -16,12 +17,7 @@ export default function ContactBanner() {
             className="h-10 w-10 -translate-y-3 md:h-14 md:w-14"
             aria-hidden="true"
           />
-          <a
-            href="mailto:annylam.hi@gmail.com"
-            className="font-heading text-3xl font-extrabold tracking-tight text-ink transition-opacity hover:opacity-80 sm:text-4xl md:text-6xl"
-          >
-            annylam.hi<span className="text-teal">@</span>gmail.com
-          </a>
+          <EmailLink className="font-heading text-3xl font-extrabold tracking-tight sm:text-4xl md:text-6xl" />
         </div>
       </div>
     </section>

@@ -14,7 +14,9 @@ concept blurb + a disclaimer note saying the full case study is in
 progress) — that's not a gap to fill, it's the actual current source design.
 `/contact` (below) is the one exception to "every page has a Figma source" —
 it was designed originally within the existing system, not traced from a
-screenshot, and its copy is a first draft pending the user's review.
+screenshot. Its copy is locked (the user dictated it verbatim, see below),
+unlike the placeholder-style draft copy other new sections sometimes start
+with.
 
 **Reference case studies:** `PROGRESS.md` at the repo root tracks the
 Woolworths Internal Products page's pass-by-pass build history, the source
@@ -33,42 +35,114 @@ layout patterns a new case study needs already have precedent.
 and Contact are built, and the Home/About hero entrance animation (below) is
 finished and tuned to the user's taste through several rounds of feedback.
 There is no queued next step — the next session should ask the user what
-they want to work on rather than assume there's a backlog. One caveat:
-Contact's hero copy (see below) is a first-pass draft the user hasn't
-reviewed/edited yet — don't treat its wording as locked the way every other
-page's copy is.
+they want to work on rather than assume there's a backlog.
 
-Done this session (most recent first): built `app/contact/page.tsx` +
-`components/contact/ContactHero.tsx` — the last unresolved route, so the
-site's full nav (Home, About, Contact, all 7 case studies) now works
-end-to-end with no 404s. Unlike every other page, Contact has **no Figma
-source** — the user asked for it to be designed originally but strictly
-within the existing system (same tokens/spacing/radii/motion, no new
-component styles). Two things worth flagging:
-- `ContactBanner` already renders globally on every page via
-  `app/layout.tsx`, directly under `{children}` — so Contact's own content
-  is deliberately just a short calm hero (pill badge "Let's talk" → heading
-  "Let's build something together" → one-line paragraph → Email me/LinkedIn
-  CTAs) that leads into the global banner as its closing CTA, rather than
-  duplicating "get in touch" messaging a second time. Checked visually: the
-  hero's copy and the banner's "Have an idea, a project, or just want to
-  chat?" line don't overlap in wording.
-- `PillLink` (`components/ui/PillLink.tsx`) gained an `outline` variant
-  (`border border-border text-ink hover:bg-surface/60 rounded-full px-6
-  py-3` — same treatment as `Tag`'s outline variant, pill-shaped and sized
-  to match `PillLink`'s existing `dark`/`teal` variants) for the secondary
-  "Connect on LinkedIn" CTA, plus an `external` prop (sets
-  `target="_blank" rel="noopener noreferrer"`, mirroring the `external`
-  flag `SiteHeader`/`SiteFooter` already use on their nav-link arrays) since
-  no prior `PillLink` usage pointed off-site. Reach for these before
-  hand-rolling another outline/external link button. The LinkedIn href is
-  the same `https://www.linkedin.com/` placeholder already used in
-  `SiteHeader`/`SiteFooter` (see README's noted assumption that the real
-  LinkedIn URL isn't wired up yet).
-- Hero copy is intentionally short/calm per direct request ("shouldn't try
-  to out-compete the global banner") — resist the urge to pad it out with
-  more sections; if the user wants Contact to grow (a form, FAQ, etc.) treat
-  that as new scope, not a gap in this build.
+Done this session (most recent first):
+
+**Fixed stale image cache after a direct `/public` file swap.** After
+replacing project-card PNGs in place (same filename, new bytes — see below),
+the user reported the site still showing the old images even though the
+files on disk were byte-identical (verified via `md5`) to the new source
+exports. Cause: Turbopack dev's image-optimizer cache
+(`.next/dev/cache/images/`) had pre-existing cached `.webp` renditions from
+before the swap and doesn't always invalidate on an in-place file
+overwrite. Fix: `rm -rf .next/dev/cache/images` (safe — it's a regenerable
+build artifact, not source) while the dev server keeps running; no restart
+needed. **If a `/public` image is ever replaced in place again and the
+running dev server still shows the old version after a hard refresh, clear
+this directory before assuming the file copy failed.**
+
+**Replaced all 7 project-card images + added a real "Coming soon" pill.**
+The user re-exported clean, border-free versions of every image in
+`public/images/home/` (Woolworths, Bunch, RealSwipe, Echo Archive, Diamond
+Roofing, How the Body Remembers, HobbyLink) from
+`~/Desktop/portfolio_images/Home/`. Copied over the old files 1:1 by
+filename and updated `imageWidth`/`imageHeight` in `lib/projects.ts` to the
+new assets' actual dimensions (761×599 for the 4 `selectedWork` cards,
+632×480 for the 3 `otherExplorations` cards) — same "must match the actual
+asset" rule as the Content/assets note below already states. Separately,
+the old HobbyLink card image had a "Coming soon" badge baked into its
+pixels; the clean replacement doesn't have one, so it's now a real UI
+element instead: `Project` (`lib/projects.ts`) gained an optional
+`comingSoon?: boolean` field (set on the HobbyLink entry), and `ProjectCard`
+renders a pill (`absolute bottom-4 left-4`, `bg-bg`, `shadow-md`,
+`rounded-full`) over the image's now-`relative` container when it's set.
+Reach for this flag instead of baking a status badge into a future asset
+again — it survives image swaps and matches the design system directly.
+
+**Found and fixed a border baked into every project-card image (not CSS).**
+The user first reported "a grey border around case-study card images" and
+the first fix attempt — removing `bg-border/30` from `ProjectCard`'s image
+container (a plausible CSS culprit: a translucent background peeking
+through a rounded-corner/`object-cover` sub-pixel gap) — didn't fully
+resolve it, because the real cause was different: **all 7 of the original
+`public/images/home/*.png` files had an identical ~2–3px solid-color
+(`RGB 196,207,206`) stroke baked into every edge**, confirmed by pixel-
+sampling every image's edges before concluding it was systemic rather than
+a one-off asset issue (same diagnostic instinct as the Content/assets note
+below about baked-in borders, just applied at a larger, sitewide scale this
+time — check *every* affected asset before assuming a single-image
+fix is enough). Cropped the border off all 7 with PIL and updated
+`imageWidth`/`imageHeight` accordingly — later superseded anyway by the
+clean re-exports above, but the `bg-border/30` removal on `ProjectCard`
+itself stayed (harmless simplification, no functional change either way).
+
+**Added a hand-drawn draw-on animation to Contact's squiggle.** Extended
+the `.hero-anim-*` system (see Motion conventions) with `.hero-anim-draw-lg`
+/ `heroDrawLarge` — a second stroke-draw variant sized for
+`squiggle-large.svg` (the Contact/`ContactBanner` squiggle), which is a
+different, much longer asset than the small "AN NY" squiggle: three
+separate comet-trail cubic-bezier strokes in one `<path>`, total length
+~164.6 units (measured with the same small bezier arc-length script used
+for the original squiggle, not eyeballed). `stroke-dasharray: 168`,
+900ms duration (scaled up from the original's 550ms for the ~6x longer
+path). Needed the SVG inlined as real JSX in `ContactHero.tsx` (not
+`next/image`) for the same reason as the original squiggle — animating
+`stroke-dashoffset` needs a real `<path>` in the DOM. Non-obvious detail
+worth keeping if this pattern comes up again: **a single `<path>` with
+multiple subpaths (multiple `M...C` segments) still works with one
+`stroke-dasharray`/`dashoffset` animation** — `M` (moveto) jumps between
+subpaths don't consume dash-pattern length, so animating one dashoffset
+across the whole path draws each subpath's stroke in sequence rather than
+needing a separate animation per subpath.
+
+**Re-animated Contact's hero with the `.hero-anim-*` system, not `Reveal`.**
+Initially built with `Reveal` (see the entry below); switched to
+`hero-anim-rise` (badge → line → email row, staggered 0ms/140ms/280ms)
+per direct request to match Home/About's entrance treatment — consistent
+with Motion conventions' existing rule that above-the-fold, load-in-only
+hero content should use the CSS `.hero-anim-*` system, not the
+scroll-triggered `Reveal`. `ContactHero.tsx` is a plain server component
+now (no `"use client"`) since the CSS animation needs no
+`IntersectionObserver` — simpler than the `Reveal` version it replaced.
+
+**Corrected Contact's content to reuse `ContactBanner`'s copy verbatim,
+promoted to primary content — not new copy.** The initial build (see below)
+invented its own hero copy and CTAs; the user's actual intent was narrower
+and more literal: Contact's *entire* page is the pill badge "Let's talk" +
+the line "Have an idea, a project, or just want to chat?" + the email as a
+large `mailto:` link with the same visual treatment (squiggle + teal "@")
+`ContactBanner` already uses globally — nothing else, no secondary CTAs, no
+LinkedIn link (already in header/footer). This meant:
+- **`ContactBanner` no longer renders on `/contact`.** It still renders
+  globally on every other route. `app/layout.tsx` now renders
+  `components/layout/ConditionalContactBanner.tsx` (a small client
+  component, `"use client"` + `usePathname()`, returns `null` when
+  `pathname === "/contact"`) in place of `ContactBanner` directly — the
+  architecture note below is updated to reflect this. If a future page also
+  needs to opt out of the global banner, extend this component's pathname
+  check rather than adding another conditional wrapper.
+- The `PillLink` `outline` variant and `external` prop added during the
+  first build pass were **reverted** — they were introduced for CTAs
+  (Email me / Connect on LinkedIn) that no longer exist on the page, so
+  `PillLink` is back to just `dark`/`teal` variants, no `external` prop.
+  Don't re-add these speculatively; if a future outline/external pill-link
+  need actually arises, that's the reference point.
+- The real LinkedIn URL (`https://www.linkedin.com/in/an-ny-lam/`) was
+  provided and wired into `SiteHeader`/`SiteFooter`'s nav-link arrays,
+  replacing the long-standing `https://www.linkedin.com/` placeholder — the
+  README's "LinkedIn URL is a placeholder" assumption (referenced in
+  Styling conventions below) is now stale; the real URL is live.
 
 Earlier this session: built a choreographed load-in animation for the Home
 (`components/home/Hero.tsx`) and About
@@ -260,9 +334,14 @@ There is no test suite configured in this repo.
 
 ## Architecture
 
-- **`app/layout.tsx`** is the root layout and renders `SiteHeader`, `ContactBanner`,
-  and `SiteFooter` on every route. New pages just need `app/<route>/page.tsx`; the
-  header/footer chrome is automatic.
+- **`app/layout.tsx`** is the root layout and renders `SiteHeader`,
+  `ConditionalContactBanner`, and `SiteFooter` on every route. New pages just
+  need `app/<route>/page.tsx`; the header/footer chrome is automatic.
+  `ConditionalContactBanner` (`components/layout/ConditionalContactBanner.tsx`)
+  renders the real `ContactBanner` on every route except `/contact` — that
+  page's own hero *is* the banner's content promoted to primary content, so
+  showing both would duplicate the same two lines back to back. Extend its
+  pathname check if another page ever needs to opt out too.
 - **`lib/projects.ts`** is the single source of truth for case-study content: the
   `Project` type and the `selectedWork` / `otherExplorations` arrays consumed by
   `app/page.tsx`. Adding or editing a project card means editing this file, not JSX.
@@ -273,7 +352,11 @@ There is no test suite configured in this repo.
   Explorations). Tags always render `variant="outline"` (transparent background) —
   `Tag`'s `solid` variant still exists but nothing currently uses it; don't
   reintroduce it without a specific reason, since transparent tags are now the
-  sitewide convention, not a one-off.
+  sitewide convention, not a one-off. `Project` also has an optional
+  `comingSoon?: boolean` (set on HobbyLink) — `ProjectCard` renders a
+  "Coming soon" pill absolutely positioned over the bottom-left of the image
+  when set. Use this flag rather than baking a status badge into a card image
+  asset — it survives image swaps and stays a real, styleable UI element.
 - **`components/work/CaseStudyHero.tsx`** props are more flexible than they
   look at first read, to fit hero layouts that don't match Woolworths' exact
   shape: `subtitle` renders under the title in the left column (for case
@@ -321,9 +404,12 @@ There is no test suite configured in this repo.
   README.md mentions "Plus Jakarta Sans" as an earlier assumption; the actual
   implemented heading font is Urbanist — trust `app/layout.tsx` over the README.)
 - Colors/fonts are best-effort matches pixel-sampled from a flattened Figma
-  screenshot, not exact design tokens — see README.md "Assumptions made" for the
-  full list (logo mark recreated as styled text, LinkedIn URL is a placeholder,
-  `/about` and `/contact` nav links have no pages yet).
+  screenshot, not exact design tokens — see README.md "Assumptions made" for
+  the full list (logo mark recreated as styled text). Two of that list's
+  other items are now stale and superseded by this file: the LinkedIn URL is
+  no longer a placeholder (`SiteHeader`/`SiteFooter` link to
+  `https://www.linkedin.com/in/an-ny-lam/`), and `/about` and `/contact` are
+  both built.
 - Use the `container-content` utility class (defined in `app/globals.css`) for
   page-width containers rather than re-deriving max-width/padding per section.
   Case-study (`/work/*`) pages use `container-work` instead (same pattern, capped
@@ -340,14 +426,15 @@ There is no test suite configured in this repo.
 ## Motion conventions
 
 - **The `.hero-anim-*` system in `app/globals.css`** is a *separate* motion
-  system from `Reveal`, purpose-built for the Home/About hero's one-time
-  choreographed load-in (`components/home/Hero.tsx` and
-  `components/about/AboutHero.tsx`). Both heroes are always above the fold,
-  so there's no scroll trigger to wait for — these are plain CSS
+  system from `Reveal`, purpose-built for one-time choreographed hero load-ins
+  (`components/home/Hero.tsx`, `components/about/AboutHero.tsx`, and
+  `components/contact/ContactHero.tsx`). These heroes are always above the
+  fold, so there's no scroll trigger to wait for — these are plain CSS
   `@keyframes` + `animation` (not `transition`), fired on mount via
-  `animation-delay`, with zero JS. Don't route new above-fold, load-in-only
-  animations through `Reveal` (which exists to solve a different problem,
-  scroll-into-view timing) — extend this system instead. Classes:
+  `animation-delay`, with zero JS (no `"use client"` needed just for this).
+  Don't route new above-fold, load-in-only animations through `Reveal`
+  (which exists to solve a different problem, scroll-into-view timing) —
+  extend this system instead. Classes:
   - `.hero-anim-rise` — fade + translateY, the default "appear" motion for
     plain text/pill elements (paragraphs, role line, tags, pills).
   - `.hero-anim-letter` — same motion, sized for a single split-out letter
@@ -380,6 +467,20 @@ There is no test suite configured in this repo.
     resized or redrawn, re-measure the path length and update
     `stroke-dasharray` to match — don't reuse `28` or guess a bigger number
     "to be safe."
+  - `.hero-anim-draw-lg` — the same hand-drawn stroke-reveal technique,
+    sized for `ContactHero.tsx`'s squiggle (`squiggle-large.svg`, also
+    inlined as JSX for the same reason as above). A different, much longer
+    asset: three separate comet-trail cubic-bezier strokes in one `<path>`,
+    total length ~164.6 units (measured the same way, not guessed) →
+    `stroke-dasharray: 168`, 900ms duration (scaled up from `.hero-anim-draw`'s
+    550ms for the ~6x longer path). Don't reuse `.hero-anim-draw`'s `28`/`550ms`
+    for a different squiggle asset — every asset needs its own measured
+    dasharray. Non-obvious mechanic this relies on: a single `<path>` with
+    multiple subpaths (multiple `M...C` segments) still animates correctly
+    with one `stroke-dasharray`/`dashoffset` pair — `M` (moveto) jumps
+    between subpaths don't consume dash-pattern length, so one dashoffset
+    animation draws each subpath's stroke in sequence rather than needing a
+    separate animation per subpath.
   - `.hero-anim-mask` — the "Product Designer" line's editorial reveal:
     text slides up from behind an `overflow-hidden` mask
     (`translateY(100%) → translateY(0)`) instead of just fading in. **The
@@ -479,6 +580,23 @@ There is no test suite configured in this repo.
   without touching alpha (so the card's rounded shape is unchanged) or any
   interior illustration content (which sits well inside the erosion margin).
   Re-export and replace the asset in `public/images/work/<slug>/`.
+  **This isn't always a single-asset problem** — all 7 of
+  `public/images/home/*.png` once had an identical ~2–3px solid-color
+  border baked in from the same Figma export step, only noticed after a
+  CSS fix (removing a `bg-*` from the image container) didn't resolve what
+  looked like a one-off visual bug. If a border shows up on one card image,
+  pixel-sample the edges of *every* card image sharing that export pipeline
+  before concluding it's isolated — it may be systemic. (These 7 assets
+  were later replaced entirely with clean re-exports, but the lesson holds
+  for any future batch-exported set.)
+- **Directly overwriting a `/public` image file in place (same filename,
+  new bytes) can leave the running dev server showing the old image even
+  after a hard refresh.** Turbopack dev's image-optimizer cache
+  (`.next/dev/cache/images/`) doesn't always invalidate on an in-place
+  overwrite. Verify the file itself changed first (`md5`/`md5sum` the new
+  source against the file in `public/`) before assuming a copy failed —
+  then `rm -rf .next/dev/cache/images` (safe, regenerable) while the dev
+  server keeps running; no restart needed.
 
 <!-- BEGIN:nextjs-agent-rules -->
 

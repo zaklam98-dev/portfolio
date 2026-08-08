@@ -2,18 +2,22 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import Logo from "@/components/ui/Logo";
+import WorkDropdown from "@/components/layout/WorkDropdown";
+import { allProjects } from "@/lib/projects";
+import { LINKEDIN_URL } from "@/lib/constants";
 
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/an-ny-lam/", external: true },
+  { label: "LinkedIn", href: LINKEDIN_URL, external: true },
 ];
 
 export default function SiteHeader() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [workExpanded, setWorkExpanded] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-bg/95 backdrop-blur">
@@ -26,19 +30,21 @@ export default function SiteHeader() {
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
             return (
-              <Link
-                key={link.label}
-                href={link.href}
-                target={link.external ? "_blank" : undefined}
-                rel={link.external ? "noopener noreferrer" : undefined}
-                className={`text-base transition-colors duration-200 ${
-                  isActive
-                    ? "font-semibold text-ink underline decoration-2 underline-offset-8"
-                    : "text-muted hover:text-ink"
-                }`}
-              >
-                {link.label}
-              </Link>
+              <Fragment key={link.label}>
+                <Link
+                  href={link.href}
+                  target={link.external ? "_blank" : undefined}
+                  rel={link.external ? "noopener noreferrer" : undefined}
+                  className={`text-base transition-colors duration-200 ${
+                    isActive
+                      ? "font-semibold text-ink underline decoration-2 underline-offset-8"
+                      : "text-muted hover:text-ink"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+                {link.label === "Home" && <WorkDropdown direction="down" />}
+              </Fragment>
             );
           })}
           <Link
@@ -78,19 +84,73 @@ export default function SiteHeader() {
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    target={link.external ? "_blank" : undefined}
-                    rel={link.external ? "noopener noreferrer" : undefined}
-                    className={`text-base ${
-                      isActive ? "font-semibold text-ink" : "text-muted"
-                    }`}
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
+                <Fragment key={link.label}>
+                  <li>
+                    <Link
+                      href={link.href}
+                      target={link.external ? "_blank" : undefined}
+                      rel={link.external ? "noopener noreferrer" : undefined}
+                      className={`text-base ${
+                        isActive ? "font-semibold text-ink" : "text-muted"
+                      }`}
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                  {link.label === "Home" && (
+                    <li>
+                      <button
+                        type="button"
+                        aria-expanded={workExpanded}
+                        onClick={() => setWorkExpanded((value) => !value)}
+                        className={`flex w-full items-center justify-between text-base ${
+                          pathname.startsWith("/work/")
+                            ? "font-semibold text-ink"
+                            : "text-muted"
+                        }`}
+                      >
+                        Work
+                        <svg
+                          width="10"
+                          height="6"
+                          viewBox="0 0 10 6"
+                          fill="none"
+                          aria-hidden="true"
+                          className={`transition-transform duration-200 ${
+                            workExpanded ? "rotate-180" : ""
+                          }`}
+                        >
+                          <path
+                            d="M1 1L5 5L9 1"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </button>
+                      {workExpanded && (
+                        <ul className="mt-3 flex flex-col gap-3 pl-4">
+                          {allProjects.map((project) => (
+                            <li key={project.href}>
+                              <Link
+                                href={project.href}
+                                className="text-sm text-muted"
+                                onClick={() => {
+                                  setMenuOpen(false);
+                                  setWorkExpanded(false);
+                                }}
+                              >
+                                {project.title}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  )}
+                </Fragment>
               );
             })}
             <li>
