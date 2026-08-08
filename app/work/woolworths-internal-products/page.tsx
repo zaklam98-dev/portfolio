@@ -151,8 +151,8 @@ export default function WoolworthsInternalProductsPage() {
     <>
       <CaseStudyHero
         image="/images/work/woolworths-internal-products/hero.png"
-        imageWidth={1152}
-        imageHeight={440}
+        imageWidth={2304}
+        imageHeight={880}
         imageAlt="Isometric collage of Woolworths internal product screens: Product Spec Review, Industry Events editorial calendar, Upcoming events calendar, and New Releases grocery launch screen"
         title="Internal Products for Operational Teams at Woolworths"
         meta={metaRows}

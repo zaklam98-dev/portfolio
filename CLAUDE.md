@@ -34,10 +34,147 @@ layout patterns a new case study needs already have precedent.
 **Status: no known outstanding work.** All 7 case studies plus Home, About
 and Contact are built, and the Home/About hero entrance animation (below) is
 finished and tuned to the user's taste through several rounds of feedback.
-There is no queued next step — the next session should ask the user what
-they want to work on rather than assume there's a backlog.
+Header/footer nav now include a "Work" dropdown (all 7 projects, click-
+triggered) next to Home/About/LinkedIn, every case study's sticky pill nav
+scroll-spies as you scroll, and the Contact-page/`ContactBanner` email is
+click-to-copy (not a `mailto:` link) with its own hover color-swap and a
+small copy-confirmation tooltip + pulse. There is no queued next step — the
+next session should ask the user what they want to work on rather than
+assume there's a backlog.
 
 Done this session (most recent first):
+
+**Home hero tags shortened from 4 to 3, wording iterated live.** `heroTags`
+in `components/home/Hero.tsx` is now `["Systems Thinking", "AI-Enhanced
+Workflow", "Craft-Driven"]` — replaced the old 4-tag set ("Product Design",
+"UX/UI", "Interaction Design", "Visual Design"), and the middle tag's
+wording itself changed twice more right after ("AI-Assisted Design" →
+"AI-Assisted Workflow" → "AI-Enhanced Workflow") — if this tag comes up
+again, don't assume "AI-Assisted" is the settled wording, check the current
+file. Before making the count change, confirmed the per-tag
+`animationDelay` (`590 + index * 85`) is computed purely from the array's
+`index`, not hardcoded per tag, so dropping from 4 to 3 needed zero
+`hero-anim-*` changes — and `justify-center` on the tag row already centers
+correctly at any tag count. Also removed a line from
+`components/about/AboutMeSection.tsx`'s `facts` list ("🇻🇳 Originally from
+Vietnam, now based in Sydney.") — plain content deletion, four facts
+remain, no structural change.
+
+**Found and fixed a real CSS bug behind the email tooltip's persistent
+off-center position — not a caching issue, despite two rounds of it looking
+like one.** The "Copied!" tooltip (see below) kept centering on the email
+*button's* width instead of the full squiggle+email row's width, even after
+an earlier fix that moved the row's `relative` positioning context up from
+the button (which should have been enough). The user tested in a second
+browser to rule out a stale tab — the right call, since it forced a real
+diagnosis instead of another "hard refresh and see" round. Root cause,
+found by pixel-measuring a screenshot precisely (not eyeballing) and
+confirming the server-rendered HTML via `curl` matched the source first
+(ruling out a stale bundle before looking for a CSS bug): **the tooltip was
+nested *inside* the `<button>`, and the button simultaneously receives a
+`transform`-animating class (`.email-copied-pulse`, the copy-confirmation
+scale pulse) whenever the tooltip is visible. Per the CSS spec, any element
+with an active `transform` becomes a new containing block for its
+absolutely-positioned descendants — so the pulsing button was silently
+overriding the row div as the tooltip's positioning context**, undoing the
+earlier `relative`-on-the-row fix the instant `copied` became true. Fixed
+by having `EmailLink` return a Fragment with the tooltip as a **sibling**
+of the button rather than a child — both are direct children of the row
+div, so the button's own transform can no longer intervene. **General
+lesson, not specific to this component: never nest an absolutely-positioned
+tooltip/overlay inside an element that will get a `transform`-animating
+class while the tooltip is visible — render them as siblings under the same
+positioned ancestor instead, or the animated element can silently hijack
+the positioning context out from under a `position: relative` ancestor
+further up.** Also, per a follow-up request: moved the tooltip from above
+the email (`bottom-full`) to below it (`top-full`), flipping the
+`emailCopiedTooltip` keyframe's vertical drift direction to match, and
+widened the gap `mt-2` → `mt-4` (+8px).
+
+**Removed the Contact page's "Copy email" / "Go to LinkedIn" buttons after
+the email itself became click-to-copy (see below) — they were now
+redundant.** Deleted `components/contact/CopyEmailButton.tsx` entirely (its
+only usage). `PillLink`'s `outline` variant and `external` prop — re-added
+for these buttons earlier in the same session — were reverted *again*; this
+is now the **second** time this exact add-then-revert cycle has happened
+for this component (see the matching note further down for the first time).
+If a third real need for an outlined/external `PillLink` comes up, it's
+worth just keeping the variant permanently rather than re-adding and
+re-reverting a third time.
+
+**Polished the email copy-confirmation into a small floating tooltip +
+button pulse, and made clicking the email itself copy to clipboard instead
+of opening a mail client.** Two related changes to
+`components/ui/EmailLink.tsx`:
+- It's now a client component rendering a `<button>` (not
+  `<a href="mailto:...">`) — `onClick` calls `navigator.clipboard.writeText`,
+  with a screen-reader-only `aria-live="polite"` announcement (kept separate
+  from the visual tooltip, which is `aria-hidden` — the two shouldn't
+  double-announce the same thing). `appearance-none`/`border-0`/
+  `bg-transparent`/`p-0`/`cursor-pointer` reset the button back to looking
+  exactly like the anchor it replaced.
+- On copy, a small "Copied!" pill fades+rises in below the email
+  (`.email-copied-tooltip`/`emailCopiedTooltip` keyframe, 1800ms, timed just
+  under the 2000ms reset so it finishes before unmount) and the button gets
+  a tiny spring scale pulse (`.email-copied-pulse`/`emailCopiedPulse`,
+  `scale(1) → 1.02 → 1`, 380ms). Both keyframes live in `app/globals.css`
+  right after the `.hero-anim-*` block and deliberately reuse that system's
+  exact spring easing (`cubic-bezier(0.22, 1, 0.36, 1)`) for a consistent
+  feel — see the updated Motion conventions entry below. No
+  `prefers-reduced-motion` handling needed; the existing global `*`
+  animation-duration override already covers it.
+- The tooltip's text (`text-xs font-medium normal-case tracking-normal
+  font-body`) explicitly resets typography, since it inherits from whatever
+  heading-sized className the caller passes to `EmailLink` (`text-3xl`/
+  `font-extrabold`/`tracking-tight`/`font-heading` in both current usages)
+  — without the reset, "Copied!" would render at the same giant heading
+  size as the email itself.
+
+**Extracted `components/ui/EmailLink.tsx` as a shared component and added a
+hover color-swap.** `ContactBanner` and `ContactHero`'s email — large
+heading-style text with a teal "@" — was duplicated markup in both places;
+now both render `<EmailLink className="..." />` with just the text-size
+classes varying (identical between the two so far in practice). Hover swaps
+the colors (the "@" flips teal→ink, the rest flips ink→teal) via Tailwind's
+`group`/`group-hover` rather than wrapping the plain text in extra spans —
+the button itself just needs `hover:text-teal`, and the `@` span needs
+`group-hover:text-ink`, both `transition-colors duration-200`.
+
+**Added a "Work" dropdown to the header and footer nav, and made every case
+study's sticky pill nav scroll-spy.** Two mostly-independent pieces of work:
+- `components/layout/WorkDropdown.tsx` (new) lists all 7 projects — sourced
+  from a new `lib/projects.ts` export, `allProjects = [...selectedWork,
+  ...otherExplorations]`, not a hardcoded list — and is used in both
+  `SiteHeader` (opens downward, inserted right after "Home") and
+  `SiteFooter` (opens upward, `size="sm"` prop for the smaller footer type
+  scale). **It's click-triggered, not hover-triggered** — hover was the
+  original spec, but got explicitly replaced with click after the fact
+  (toggle on click; close on outside-click via a `document` `mousedown`
+  listener; Escape closes it and returns focus to the trigger button). Don't
+  reintroduce hover-to-open; that was a deliberate reversal, not an
+  oversight. Mobile gets a *separate*, hand-rolled tap-to-expand accordion
+  inside `SiteHeader`'s existing hamburger menu (its own `workExpanded`
+  state, not `WorkDropdown` reused) — `SiteFooter` has no hamburger/mobile-
+  menu concept at all, so `WorkDropdown`'s click-to-toggle behavior doubles
+  as its own mobile affordance there with no extra code needed.
+- `components/work/CaseStudyNav.tsx` now tracks which section is currently
+  in view via `IntersectionObserver` (a `rootMargin: "-20% 0px -70% 0px"`
+  band near the top of the viewport — the standard scrollspy trick, not
+  scroll-position math) and highlights the matching pill by reusing the
+  nav's own existing white-fill treatment (the same style its "go home"
+  logo button already uses) as the active state, since there was no other
+  active-state precedent for this specific dark floating pill nav to match.
+  A second effect keeps the active pill in view by computing and setting
+  the horizontal scroll container's own `scrollLeft` directly — never
+  `scrollIntoView`, which would risk scrolling the page itself. Applies
+  automatically to all 5 case studies that render this component (via
+  `CaseStudyHero`'s `navItems` prop, or directly on the hand-rolled
+  `how-the-body-remembers` hero), no per-page changes needed.
+- Also added `lib/constants.ts` (`LINKEDIN_URL`, `EMAIL`) as the single
+  source for both values — `SiteHeader`/`SiteFooter`'s nav-link arrays and
+  `EmailLink` all import from here now instead of repeating literals.
+
+Earlier this session (most recent first):
 
 **Fixed stale image cache after a direct `/public` file swap.** After
 replacing project-card PNGs in place (same filename, new bytes — see below),
@@ -345,6 +482,11 @@ There is no test suite configured in this repo.
 - **`lib/projects.ts`** is the single source of truth for case-study content: the
   `Project` type and the `selectedWork` / `otherExplorations` arrays consumed by
   `app/page.tsx`. Adding or editing a project card means editing this file, not JSX.
+  It also exports `allProjects` (`[...selectedWork, ...otherExplorations]`) —
+  the source for anything that lists every project, e.g. the header/footer
+  "Work" dropdown below. `lib/constants.ts` holds `LINKEDIN_URL` and `EMAIL`,
+  the single source for both — `SiteHeader`, `SiteFooter`, and `EmailLink`
+  all import from there rather than repeating the literals.
 - **`components/work/ProjectCard.tsx` + `ProjectGrid.tsx`** are the reusable
   case-study card/grid, driven entirely by `Project` objects — intended to be reused
   by future `/work/*` pages as well as the home page's two grids (`columns`/`size`
@@ -368,6 +510,18 @@ There is no test suite configured in this repo.
   `CaseStudyNav` doesn't render at all, rather than rendering an empty pill
   row. Check a new case study's Figma hero against all these patterns
   before assuming the Woolworths layout is the only shape.
+- **`components/work/CaseStudyNav.tsx`** (the fixed dark pill nav
+  `CaseStudyHero` renders when `navItems` is set) scroll-spies: an
+  `IntersectionObserver` tracks which section is in view and highlights the
+  matching pill (reusing the nav's own white-fill "go home" button style as
+  the active state — see Motion conventions), and a second effect keeps the
+  active pill in view by setting the pill row's own `scrollLeft` directly,
+  never `scrollIntoView` (which risks scrolling the page itself, not just
+  the pill row). This is per-instance, not the shared observer `Reveal`
+  uses — each case study page mounts its own `CaseStudyNav`, and the
+  concern here (continuously tracking the *current* section) is different
+  from `Reveal`'s one-time "has this appeared yet" trigger, so reusing
+  `Reveal`'s shared-observer machinery wouldn't fit.
 - **`components/work/BeforeAfterPair.tsx`** renders a labeled Before/After
   image comparison, in `layout="side-by-side"` (two columns, e.g. two phone
   mockups — the default) or `layout="stacked"` (full-width sections one
@@ -385,11 +539,18 @@ There is no test suite configured in this repo.
   now match in size. Default (`contentScale: 1`, both sides) means neither
   canvas needs adjustment — most pairs won't need this prop at all.
 - **`components/layout/`** holds the shared chrome: `SiteHeader`, `SiteFooter`,
-  `ContactBanner`.
+  `ContactBanner`, `ConditionalContactBanner`, and `WorkDropdown` (the "Work"
+  nav item's dropdown menu — click-triggered, `direction="down"|"up"` prop
+  for header vs. footer, used directly by both; `SiteHeader`'s mobile
+  hamburger menu has its own separate hand-rolled accordion instead of
+  reusing this component).
 - **`components/home/`** holds home-page-only sections (`Hero`,
   `CreativitySection` — the hover-swap illustration section).
 - **`components/ui/`** holds small shared primitives (`Tag`, `PillLink`, `Logo`,
-  `Eyebrow`, `Reveal`).
+  `Eyebrow`, `Reveal`, `EmailLink` — the click-to-copy email used by both
+  `ContactBanner` and `ContactHero`; see Motion conventions before touching
+  its copy-confirmation tooltip/pulse, there's a load-bearing DOM-structure
+  gotcha).
 - Path alias `@/*` maps to the repo root (see `tsconfig.json`).
 
 ## Styling conventions
@@ -515,6 +676,34 @@ There is no test suite configured in this repo.
     `@media (prefers-reduced-motion: reduce)` rule in `globals.css` (which
     forces `animation-duration`/`transition-duration` to ~0 on `*`) already
     covers these too, same as everywhere else.
+
+- **`.email-copied-pulse` / `.email-copied-tooltip`** (also in
+  `app/globals.css`, immediately after the `.hero-anim-*` block) are
+  `components/ui/EmailLink.tsx`'s copy-confirmation animations — a separate
+  small system, not part of `.hero-anim-*` (this isn't a page-load
+  choreography), but deliberately reusing that system's exact spring easing
+  (`cubic-bezier(0.22, 1, 0.36, 1)`) for a consistent feel. `.email-copied-
+  pulse` is a one-shot `scale(1) → 1.02 → 1` on the button (380ms).
+  `.email-copied-tooltip` is a fade+translateY "Copied!" pill (1800ms,
+  timed just under `EmailLink`'s 2000ms state-reset `setTimeout` so the
+  fade-out finishes before React unmounts it rather than getting cut off).
+  **Load-bearing structural rule: the tooltip must be a sibling of the
+  button, never a child of it.** `copied` being true applies
+  `.email-copied-pulse` to the button at the same moment the tooltip is
+  visible; per the CSS spec, an element with an active `transform` becomes
+  a new containing block for its absolutely-positioned descendants, so a
+  tooltip nested *inside* the pulsing button would silently position itself
+  relative to the button instead of the intended `relative` ancestor (the
+  row div wrapping the squiggle + `EmailLink` in both `ContactBanner` and
+  `ContactHero`) — this exact bug shipped once and took a precise pixel-
+  measurement + a `curl` of the server-rendered HTML to diagnose (it looked
+  identical to a stale-cache issue at first, including after a fix that
+  addressed a *different*, real part of the same symptom — see the session
+  log for the full trail). `EmailLink` returns a Fragment for exactly this
+  reason. Don't restructure it to nest the tooltip inside the button again.
+  This pattern generalizes: never nest an absolutely-positioned tooltip/
+  overlay inside an element that will receive a `transform`-animating class
+  while the tooltip is showing.
 
 - **`components/ui/Reveal.tsx`** is the standing viewport-reveal system —
   every page (built or not-yet-built) should use it for content entering the

@@ -1,4 +1,4 @@
-const heroTags = ["Systems Thinking", "AI-Assisted Workflow", "Craft-Driven"];
+const heroTags = ["Systems Thinking", "AI-Enhanced Workflow", "Craft-Driven"];
 
 export default function Hero() {
   return (
