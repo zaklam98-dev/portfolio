@@ -10,14 +10,17 @@ type EmailLinkProps = {
 /**
  * Renders its own "Copied!" tooltip via `position: absolute`, centered with
  * `left-1/2` — but doesn't set `position: relative` on itself. Both current
- * usages (ContactBanner, ContactHero) sit next to a squiggle icon in a row,
- * so centering on the button's own box would center on the email text only,
- * visibly offset from the row's actual center (where the pill/paragraph
- * above it are centered). The nearest `relative` *ancestor* — the row div
- * wrapping the squiggle + EmailLink — is the intended positioning context,
- * so the tooltip centers on the full row instead. A future usage of
- * EmailLink needs its own `relative` wrapper for the tooltip to position
- * correctly.
+ * usages (ContactBanner, ContactHero) rely on a `relative` *ancestor* — the
+ * wrapper div around EmailLink — as the tooltip's positioning context, so a
+ * future usage of EmailLink needs its own `relative` wrapper for the
+ * tooltip to position correctly. That wrapper also carries the decorative
+ * squiggle, positioned `absolute` so it sits outside normal flow — the
+ * wrapper's layout width (and therefore what "centered" and the tooltip's
+ * `left-1/2` mean) is driven by the email text alone, deliberately: the
+ * squiggle is an accent pointing at the email, not part of what should be
+ * optically centered in the section. Don't put the squiggle back in normal
+ * flow (e.g. a flex row) next to the button — that was tried and made the
+ * email visibly off-center, shifted right by the squiggle's own width.
  *
  * The tooltip is a *sibling* of the button (this component returns a
  * Fragment), not nested inside it — that's load-bearing, not a style

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import Logo from "@/components/ui/Logo";
 import WorkDropdown from "@/components/layout/WorkDropdown";
 import { allProjects } from "@/lib/projects";
@@ -18,9 +18,27 @@ export default function SiteHeader() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [workExpanded, setWorkExpanded] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!headerRef.current?.contains(event.target as Node)) {
+        setMenuOpen(false);
+        setWorkExpanded(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [menuOpen]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-bg/95 backdrop-blur">
+    <header
+      ref={headerRef}
+      className="sticky top-0 z-50 border-b border-border bg-bg/95 backdrop-blur"
+    >
       <div className="container-content flex h-20 items-center justify-between md:h-24">
         <Link href="/" className="group text-ink" aria-label="An Ny Lam — Home">
           <Logo className="h-10 w-10" />

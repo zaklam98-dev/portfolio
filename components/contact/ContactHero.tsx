@@ -18,7 +18,7 @@ export default function ContactHero() {
       </p>
 
       <div
-        className="hero-anim-rise relative mt-6 flex items-center gap-3 md:gap-5"
+        className="hero-anim-rise relative mt-6"
         style={{ animationDelay: "280ms" }}
       >
         <svg
@@ -27,7 +27,7 @@ export default function ContactHero() {
           viewBox="0 0 84 88"
           fill="none"
           aria-hidden="true"
-          className="h-10 w-10 -translate-y-3 md:h-14 md:w-14"
+          className="absolute right-full top-1/2 mr-3 h-10 w-10 -translate-y-[calc(50%+12px)] md:mr-5 md:h-14 md:w-14"
         >
           <path
             d="M60.5473 74.6749C52.8884 76.3624 35.8832 72.0787 14.5942 84.8003M65.2637 53.5589C52.1888 44.84 21.3312 27.9041 2.49997 29.9119M81.4467 41.9624C79.9466 35.1546 72.3598 17.7311 54.0132 2.5"

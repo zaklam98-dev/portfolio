@@ -8,13 +8,13 @@ export default function ContactBanner() {
         <p className="text-lg text-muted md:text-xl">
           Have an idea, a project, or just want to chat?
         </p>
-        <div className="relative mt-6 flex items-center gap-3 md:gap-5">
+        <div className="relative mt-6">
           <Image
             src="/images/illustrations/squiggle-large.svg"
             alt=""
             width={84}
             height={88}
-            className="h-10 w-10 -translate-y-3 md:h-14 md:w-14"
+            className="absolute right-full top-1/2 mr-3 h-10 w-10 -translate-y-[calc(50%+12px)] md:mr-5 md:h-14 md:w-14"
             aria-hidden="true"
           />
           <EmailLink className="font-heading text-3xl font-extrabold tracking-tight sm:text-4xl md:text-6xl" />
