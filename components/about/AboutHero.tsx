@@ -68,10 +68,10 @@ export default function AboutHero() {
         </div>
 
         <div
-          className="hero-anim-rise shrink-0"
+          className="hero-anim-rise w-full max-w-[280px] shrink-0 md:w-auto md:max-w-none"
           style={{ animationDelay: "160ms" }}
         >
-          <div className="group relative h-[280px] w-[280px] shrink-0 md:h-[500px] md:w-[500px]">
+          <div className="group relative aspect-square w-full md:h-[500px] md:w-[500px]">
             <Image
               src="/images/illustrations/creativity-default.png"
               alt="Line illustration of An Ny sitting at her laptop with glasses on, surrounded by app icons, sparkles and a small frog"

@@ -57,14 +57,14 @@ export default function AboutMeSection() {
           </ul>
         </Reveal>
 
-        <div className="mt-16 flex items-center justify-center md:mt-20">
+        <div className="-mx-3 mt-16 flex items-center justify-center sm:mx-0 md:mt-20">
           {photos.map((photo, index) => (
             <Reveal
               key={photo.src}
               variant="image"
               index={index}
-              className={`relative w-40 shrink-0 sm:w-52 md:w-64 ${photo.offset} ${photo.z} hover:z-30 ${
-                index !== 0 ? "-ml-6 sm:-ml-8 md:-ml-10" : ""
+              className={`relative w-[calc(38.7vw-12px)] shrink-0 sm:w-52 md:w-64 ${photo.offset} ${photo.z} hover:z-30 ${
+                index !== 0 ? "-ml-[calc(9.7vw-3px)] sm:-ml-8 md:-ml-10" : ""
               }`}
             >
               <div

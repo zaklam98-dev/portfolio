@@ -23,7 +23,7 @@ export default function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border bg-bg/95 backdrop-blur">
       <div className="container-content flex h-20 items-center justify-between md:h-24">
         <Link href="/" className="group text-ink" aria-label="An Ny Lam — Home">
-          <Logo className="h-9 w-9" />
+          <Logo className="h-10 w-10" />
         </Link>
 
         <nav className="hidden items-center gap-9 md:flex" aria-label="Primary">
@@ -78,7 +78,7 @@ export default function SiteHeader() {
         <nav
           id="mobile-nav"
           aria-label="Mobile"
-          className="border-t border-border bg-bg px-6 pb-6 pt-2 md:hidden"
+          className="absolute inset-x-0 top-full max-h-[calc(100vh-5rem)] overflow-y-auto border-t border-border bg-bg px-6 pb-6 pt-2 shadow-lg md:hidden"
         >
           <ul className="flex flex-col gap-4">
             {navLinks.map((link) => {

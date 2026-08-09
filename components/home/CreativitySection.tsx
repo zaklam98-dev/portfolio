@@ -32,8 +32,11 @@ export default function CreativitySection() {
           </Reveal>
         </div>
 
-        <Reveal variant="image" className="shrink-0">
-          <div className="group relative h-[280px] w-[280px] shrink-0 md:h-[500px] md:w-[500px]">
+        <Reveal
+          variant="image"
+          className="w-full max-w-[280px] shrink-0 md:w-auto md:max-w-none"
+        >
+          <div className="group relative aspect-square w-full md:h-[500px] md:w-[500px]">
             <Image
               src="/images/illustrations/creativity-default.png"
               alt="Line illustration of An Ny working at her laptop, surrounded by icons and a small frog"
