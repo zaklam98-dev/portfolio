@@ -1,97 +1,101 @@
-const heroTags = ["Systems Thinking", "AI-Enhanced Workflow", "Craft-Driven"];
+import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="container-content pb-16 pt-16 md:pb-24 md:pt-20">
-      <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-        <span className="hero-anim-rise inline-flex items-center rounded-full border border-border bg-bg px-5 py-2 text-base text-ink">
-          Hello!
-        </span>
-
-        <h1 className="mt-6 font-heading text-5xl font-extrabold leading-[1.05] tracking-tight text-ink sm:text-6xl md:text-7xl lg:text-[80px]">
-          <span className="relative inline-block">
-            <span className="hero-anim-rise inline-block" style={{ animationDelay: "60ms" }}>
-              I&apos;m
+    <section className="container-content pb-[34px] pt-16 md:pb-[66px] md:pt-20">
+      <div className="mx-auto flex max-w-5xl flex-col items-center gap-14 md:flex-row md:items-center md:justify-between md:gap-10">
+        <div className="max-w-xl text-center md:text-left">
+          <h1 className="font-heading text-4xl font-extrabold leading-[1.05] tracking-tight text-ink sm:text-5xl md:text-6xl">
+            <span className="hero-anim-rise inline-block" style={{ animationDelay: "0ms" }}>
+              Hi, I&apos;m
             </span>{" "}
-            <span
-              className="hero-anim-group-settle inline-block text-teal"
-              style={{ animationDelay: "880ms" }}
-            >
-              <span className="hero-anim-letter inline-block" style={{ animationDelay: "130ms" }}>
-                A
-              </span>
-              <span className="hero-anim-letter inline-block" style={{ animationDelay: "160ms" }}>
-                N
-              </span>{" "}
-              <span className="hero-anim-letter inline-block" style={{ animationDelay: "190ms" }}>
-                N
-              </span>
-              <span className="hero-anim-letter inline-block" style={{ animationDelay: "220ms" }}>
-                Y
-              </span>
+            <span className="relative inline-block">
               <span
-                className="hero-anim-letter inline-block text-ink"
-                style={{ animationDelay: "220ms" }}
+                className="hero-anim-group-settle inline-block text-teal"
+                style={{ animationDelay: "980ms" }}
               >
-                ,
+                <span className="hero-anim-letter inline-block" style={{ animationDelay: "120ms" }}>
+                  A
+                </span>
+                <span className="hero-anim-letter inline-block" style={{ animationDelay: "155ms" }}>
+                  N
+                </span>{" "}
+                <span className="hero-anim-letter inline-block" style={{ animationDelay: "190ms" }}>
+                  N
+                </span>
+                <span className="hero-anim-letter inline-block" style={{ animationDelay: "225ms" }}>
+                  Y
+                </span>
+                <span className="hero-anim-letter inline-block" style={{ animationDelay: "225ms" }}>
+                  ,
+                </span>
               </span>
+              <svg
+                width="32"
+                height="33"
+                viewBox="0 0 32 33"
+                fill="none"
+                aria-hidden="true"
+                className="absolute -right-8 -top-3 h-6 w-6 md:h-8 md:w-8"
+              >
+                <path
+                  d="M2.00098 20.0005C2.00098 17.0005 5.00098 11.0005 2.00098 2.00055M9.50098 23.5005C13.8343 19.3339 22.701 9.20055 23.501 2.00055M12.501 30.5005C15.1676 30.5005 22.301 29.1005 29.501 23.5005"
+                  stroke="#88D6D9"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="hero-anim-draw"
+                  style={{ animationDelay: "980ms" }}
+                />
+              </svg>
             </span>
-            <svg
-              width="32"
-              height="33"
-              viewBox="0 0 32 33"
-              fill="none"
+          </h1>
+
+          <p
+            className="hero-anim-rise mt-6 text-lg leading-relaxed text-ink md:text-xl"
+            style={{ animationDelay: "560ms" }}
+          >
+            I design digital experiences that make complex systems feel
+            intuitive and meaningful moments feel memorable.
+          </p>
+
+          <p
+            className="hero-anim-rise mt-5 text-sm text-muted md:text-base"
+            style={{ animationDelay: "640ms" }}
+          >
+            Creative Designer @ Woolworths • Master of Interaction Design, UTS
+          </p>
+
+          <span
+            className="hero-anim-rise mt-7 inline-flex items-center rounded-full border border-border bg-bg px-5 py-2 text-base text-muted"
+            style={{ animationDelay: "720ms" }}
+          >
+            Based in Sydney
+          </span>
+        </div>
+
+        <div
+          className="hero-anim-rise w-full max-w-[280px] shrink-0 md:w-auto md:max-w-none"
+          style={{ animationDelay: "160ms" }}
+        >
+          <div className="group relative aspect-square w-full md:h-[500px] md:w-[500px]">
+            <Image
+              src="/images/illustrations/creativity-default.png"
+              alt="Line illustration of An Ny sitting at her laptop with glasses on, surrounded by app icons, sparkles and a small frog"
+              fill
+              sizes="(min-width: 768px) 500px, 280px"
+              className="object-contain transition-opacity duration-200 group-hover:opacity-0"
+              priority
+            />
+            <Image
+              src="/images/illustrations/creativity-hover.png"
+              alt=""
+              fill
+              sizes="(min-width: 768px) 500px, 280px"
               aria-hidden="true"
-              className="absolute -right-8 -top-3 h-6 w-6 md:h-8 md:w-8"
-            >
-              <path
-                d="M2.00098 20.0005C2.00098 17.0005 5.00098 11.0005 2.00098 2.00055M9.50098 23.5005C13.8343 19.3339 22.701 9.20055 23.501 2.00055M12.501 30.5005C15.1676 30.5005 22.301 29.1005 29.501 23.5005"
-                stroke="#88D6D9"
-                strokeWidth="4"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="hero-anim-draw"
-                style={{ animationDelay: "880ms" }}
-              />
-            </svg>
-          </span>
-          <br />
-          <span className="-mb-[0.3em] block overflow-hidden">
-            <span
-              className="hero-anim-mask inline-block pb-[0.3em]"
-              style={{ animationDelay: "340ms" }}
-            >
-              Product Designer
-            </span>
-          </span>
-        </h1>
-
-        <p
-          className="hero-anim-rise mt-8 max-w-3xl text-lg leading-relaxed text-ink md:text-xl"
-          style={{ animationDelay: "420ms" }}
-        >
-          I create thoughtful digital experiences by transforming complexity
-          into intuitive products that help people understand, navigate and
-          make confident decisions.
-        </p>
-
-        <p
-          className="hero-anim-rise mt-5 text-sm text-muted md:text-base"
-          style={{ animationDelay: "520ms" }}
-        >
-          Creative Designer @ Woolworths • Master of Interaction Design, UTS
-        </p>
-
-        <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-          {heroTags.map((tag, index) => (
-            <span
-              key={tag}
-              className="hero-anim-rise inline-flex items-center rounded-md border border-border bg-bg px-3.5 py-2 text-[11px] font-semibold uppercase tracking-wider text-ink"
-              style={{ animationDelay: `${590 + index * 85}ms` }}
-            >
-              {tag}
-            </span>
-          ))}
+              className="absolute inset-0 object-contain opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+            />
+          </div>
         </div>
       </div>
     </section>

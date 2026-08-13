@@ -123,7 +123,7 @@ export default function SiteHeader() {
                         aria-expanded={workExpanded}
                         onClick={() => setWorkExpanded((value) => !value)}
                         className={`flex w-full items-center justify-between text-base ${
-                          pathname.startsWith("/work/")
+                          pathname.startsWith("/work")
                             ? "font-semibold text-ink"
                             : "text-muted"
                         }`}

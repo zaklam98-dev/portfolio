@@ -18,7 +18,7 @@ export default function WorkDropdown({
   const containerRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
-  const isActive = pathname.startsWith("/work/");
+  const isActive = pathname.startsWith("/work");
 
   useEffect(() => {
     if (!open) return;
@@ -44,18 +44,26 @@ export default function WorkDropdown({
   }, [open]);
 
   return (
-    <div ref={containerRef} className="relative">
+    <div ref={containerRef} className="relative inline-flex items-center gap-1.5">
+      <Link
+        href="/work"
+        className={`transition-colors duration-200 ${
+          size === "sm" ? "text-sm" : "text-base"
+        } ${isActive ? "font-semibold text-ink" : "text-muted hover:text-ink"}`}
+      >
+        Work
+      </Link>
       <button
         ref={buttonRef}
         type="button"
         aria-haspopup="menu"
         aria-expanded={open}
+        aria-label="Toggle Work menu"
         onClick={() => setOpen((value) => !value)}
-        className={`inline-flex items-center gap-1.5 transition-colors duration-200 ${
-          size === "sm" ? "text-sm" : "text-base"
-        } ${isActive ? "font-semibold text-ink" : "text-muted hover:text-ink"}`}
+        className={`flex items-center transition-colors duration-200 ${
+          isActive ? "text-ink" : "text-muted hover:text-ink"
+        }`}
       >
-        Work
         <svg
           width="10"
           height="6"

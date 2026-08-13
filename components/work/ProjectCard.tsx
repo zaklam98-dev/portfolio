@@ -6,9 +6,16 @@ import type { Project } from "@/lib/projects";
 type ProjectCardProps = {
   project: Project;
   size?: "large" | "small";
+  /** Overrides the image's default 4:3 aspect ratio — e.g. a wide banner
+   * ratio for a single featured card. */
+  imageAspectClass?: string;
 };
 
-export default function ProjectCard({ project, size = "large" }: ProjectCardProps) {
+export default function ProjectCard({
+  project,
+  size = "large",
+  imageAspectClass = "aspect-[4/3]",
+}: ProjectCardProps) {
   const titleSize =
     size === "large" ? "text-xl md:text-2xl" : "text-lg md:text-xl";
 
@@ -23,7 +30,7 @@ export default function ProjectCard({ project, size = "large" }: ProjectCardProp
           alt={project.title}
           width={project.imageWidth}
           height={project.imageHeight}
-          className="aspect-[4/3] w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+          className={`${imageAspectClass} w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]`}
         />
         {project.comingSoon && (
           <span className="absolute bottom-4 left-4 inline-flex items-center rounded-full bg-bg px-4 py-2 text-sm font-medium text-ink shadow-md">

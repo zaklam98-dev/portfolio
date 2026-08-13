@@ -4,15 +4,15 @@ import Reveal from "@/components/ui/Reveal";
 const craftGroups = [
   {
     title: "UX / UI",
-    items: ["Website Design", "App Design", "Design Systems", "Experience Design"],
+    items: ["Product Design", "Interaction Design", "Design Systems", "User Research"],
   },
   {
     title: "Brand",
-    items: ["Logo Design", "Visual Identity", "Brand Guidelines", "Collateral Material"],
+    items: ["Visual Identity", "Logo Design", "Brand Guidelines", "Brand Assets"],
   },
   {
     title: "Graphic",
-    items: ["Print Design", "Social Media", "Illustration"],
+    items: ["Editorial Design", "Marketing Collateral", "Social Content", "Illustration"],
   },
 ];
 
