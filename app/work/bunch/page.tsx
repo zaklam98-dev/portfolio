@@ -21,9 +21,9 @@ const navItems = [
 ];
 
 const metaRows = [
-  { label: "Role", value: ["Creative Designer"] },
+  { label: "Role", value: ["Creative Designer | UX/UI"] },
   { label: "Year", value: ["2024 - Present"] },
-  { label: "Deliverables", value: ["Website", "Visual design", "Developer Handoff"] },
+  { label: "Deliverables", value: ["UX/UI", "Visual design", "Developer Handoff"] },
 ];
 
 const impactRows = [
@@ -153,10 +153,10 @@ export default function BunchPage() {
                 opportunities to improve engagement, simplify common tasks
                 and better connect the different parts of the experience.
               </p>
-              <p>My work naturally evolved into two streams:</p>
+              <p>My work fell into two broad streams:</p>
               <ul className="list-disc space-y-2 pl-5">
                 <li>Improving today&apos;s experience through shipped product improvements.</li>
-                <li>Designing tomorrow&apos;s experience by exploring the future direction of Bunch.</li>
+                <li>Exploring tomorrow&apos;s experience through future concepts and product vision.</li>
               </ul>
             </div>
           </Reveal>
@@ -185,7 +185,7 @@ export default function BunchPage() {
             </h3>
           </Reveal>
 
-          <div className="mt-8">
+          <div className="mt-[56px]">
             <Reveal variant="paragraph">
               <Eyebrow variant="muted">The Opportunity</Eyebrow>
               <div className="mt-4 space-y-4 text-lg leading-relaxed text-body">
@@ -203,7 +203,7 @@ export default function BunchPage() {
             </Reveal>
           </div>
 
-          <div className="mt-10">
+          <div className="mt-[64px]">
             <Reveal variant="paragraph">
               <Eyebrow variant="muted">The Solution</Eyebrow>
               <div className="mt-4 space-y-4 text-lg leading-relaxed text-body">
@@ -224,7 +224,7 @@ export default function BunchPage() {
             </Reveal>
           </div>
 
-          <Reveal variant="image" className="mt-10">
+          <Reveal variant="image" className="mt-[64px]">
             <Image
               src="/images/work/bunch/part01-1.png"
               width={1841}
@@ -234,7 +234,7 @@ export default function BunchPage() {
             />
           </Reveal>
 
-          <div className="mt-10">
+          <div className="mt-[64px]">
             <Reveal variant="paragraph">
               <Eyebrow variant="muted">The Impact</Eyebrow>
               <div className="mt-4 space-y-4 text-lg leading-relaxed text-body">
@@ -246,10 +246,16 @@ export default function BunchPage() {
                   , representing a significant improvement in post-claim
                   engagement.
                 </p>
+                <p>
+                  More importantly, the redesign transformed the sample claim
+                  from the end of a journey into the beginning of one,
+                  encouraging members to discover more of what Bunch had to
+                  offer.
+                </p>
                 <blockquote className="border-l-2 border-ink/30 pl-6 text-2xl leading-snug text-ink md:text-3xl">
                   A small UX intervention at a critical moment in the journey
-                  resulted in a substantial increase in time spent on the
-                  platform.
+                  created more opportunity for members to explore the wider
+                  community.
                 </blockquote>
               </div>
             </Reveal>
@@ -263,7 +269,7 @@ export default function BunchPage() {
             </h3>
           </Reveal>
 
-          <div className="mt-8">
+          <div className="mt-[56px]">
             <Reveal variant="paragraph">
               <Eyebrow variant="muted">The Challenge</Eyebrow>
               <div className="mt-4 space-y-4 text-lg leading-relaxed text-body">
@@ -281,7 +287,7 @@ export default function BunchPage() {
             </Reveal>
           </div>
 
-          <div className="mt-10">
+          <div className="mt-[64px]">
             <Reveal variant="paragraph">
               <Eyebrow variant="muted">The Solution</Eyebrow>
               <div className="mt-4 space-y-4 text-lg leading-relaxed text-body">
@@ -292,13 +298,15 @@ export default function BunchPage() {
                 </p>
                 <p>
                   This ensured members saw important information immediately
-                  without searching through lengthy conversations.
+                  without searching through lengthy conversations. At the
+                  same time, it reduced the need for moderators to repeat the
+                  same information across active discussions.
                 </p>
               </div>
             </Reveal>
           </div>
 
-          <Reveal variant="image" delay={100} className="mt-10">
+          <Reveal variant="image" delay={100} className="mt-[64px]">
             <Image
               src="/images/work/bunch/part01-2-comments.png"
               width={1407}
@@ -308,18 +316,14 @@ export default function BunchPage() {
             />
           </Reveal>
 
-          <div className="mt-10">
+          <div className="mt-[64px]">
             <Reveal variant="paragraph">
               <Eyebrow variant="muted">The Impact</Eyebrow>
               <div className="mt-4 space-y-4 text-lg leading-relaxed text-body">
                 <p>
-                  Moderators no longer needed to repeatedly respond to the
-                  same questions across active discussions.
-                </p>
-                <p>
                   The feature improved both sides of the experience,{" "}
                   <span className="font-bold text-ink">
-                    saving approximately 2-3 hours per week across community
+                    saving approximately 2–3 hours per week across community
                     teams
                   </span>{" "}
                   while creating a clearer experience for the community.
@@ -338,19 +342,9 @@ export default function BunchPage() {
           <Reveal variant="paragraph" delay={100} className="mt-6">
             <div className="space-y-4 text-lg leading-relaxed text-body">
               <p>
-                Alongside larger product improvements, I designed a series
-                of initiatives that encouraged members to return regularly,
-                contribute content and celebrate their involvement in the
-                community.
-              </p>
-              <p>
-                These initiatives included achievement badges, gifting
-                experiences, seasonal profile avatars, event entry forms,
-                refreshed email experiences and community competitions.
-              </p>
-              <p>
-                While each initiative served a different purpose, together
-                they contributed to a product that{" "}
+                Alongside larger feature improvements, I designed a range of
+                smaller experiences that supported different moments in the
+                member journey, contributed to a product that{" "}
                 <span className="font-bold text-ink">
                   felt more engaging, more current and more rewarding to
                   return to.
@@ -359,7 +353,7 @@ export default function BunchPage() {
             </div>
           </Reveal>
 
-          <Reveal variant="image" delay={150} className="mt-10">
+          <Reveal variant="image" delay={150} className="mt-[64px]">
             <Image
               src="/images/work/bunch/part01-3-initiatives.png"
               width={1485}
@@ -367,6 +361,14 @@ export default function BunchPage() {
               alt="Grid of community initiatives: seasonal Olympics avatars, achievement badges, a gifting flow, an event entry form and a refreshed reward email"
               className="h-auto w-full"
             />
+          </Reveal>
+
+          <Reveal variant="paragraph" delay={100} className="mt-[64px]">
+            <p className="text-lg leading-relaxed text-body">
+              Together, these initiatives gave me experience designing
+              across a range of touchpoints while maintaining a consistent
+              experience within an evolving product.
+            </p>
           </Reveal>
         </div>
       </section>
@@ -402,7 +404,7 @@ export default function BunchPage() {
 
           <BeforeAfterPair
             layout="stacked"
-            className="mt-8"
+            className="mt-[56px]"
             before={{
               description:
                 "The existing homepage primarily functioned as a chronological content feed.",
@@ -418,7 +420,7 @@ export default function BunchPage() {
             }}
             after={{
               description:
-                "The redesigned dashboard instead adapts to each member's goals by surfacing personalised recommendations, pending reviews, popular discussions, community achievements, cooking inspiration, etc.",
+                "The redesigned dashboard instead adapts to each member's goals by surfacing personalised recommendations, pending reviews, popular discussions, community achievements, cooking inspiration, ect. The goal was to shift the homepage from simply displaying what was new to helping members understand what was relevant to them.",
               images: [
                 {
                   src: "/images/work/bunch/part02-1-after-1.png",
@@ -455,14 +457,14 @@ export default function BunchPage() {
                 </span>
               </p>
               <p>
-                The proposed shopping experience closes this gap by allowing
-                recipes to flow directly into the Woolworths shopping cart,
-                creating a seamless journey from inspiration to purchase.
+                The proposed shopping experience closes this gap, connecting
+                inspiration to action: discover a recipe → see the relevant
+                Woolworths products → add them to a cart.
               </p>
             </div>
           </Reveal>
 
-          <Reveal variant="image" delay={150} className="mt-8">
+          <Reveal variant="image" delay={150} className="mt-[56px]">
             <Image
               src="/images/work/bunch/part02-2-shopping.png"
               width={1632}
@@ -476,7 +478,7 @@ export default function BunchPage() {
         <div className="mt-16 md:mt-20">
           <Reveal variant="heading">
             <h3 className="font-heading text-2xl font-extrabold text-ink md:text-3xl">
-              3. A Roadmap For The Future
+              3. A Vision For The Future
             </h3>
           </Reveal>
           <Reveal variant="paragraph" delay={100} className="mt-6">
@@ -489,7 +491,7 @@ export default function BunchPage() {
             </p>
           </Reveal>
 
-          <Reveal variant="image" delay={150} className="mt-10">
+          <Reveal variant="image" delay={150} className="mt-[64px]">
             <Image
               src="/images/work/bunch/timeline.png"
               width={1728}
@@ -506,17 +508,19 @@ export default function BunchPage() {
           <Eyebrow variant="muted">Reflection</Eyebrow>
           <div className="mt-4 space-y-4 text-lg leading-relaxed text-body">
             <p>
-              Success wasn&apos;t defined by launching one standout feature,
-              but by continuously improving the product through hundreds of
-              thoughtful decisions that made the experience more engaging,
-              intuitive and valuable over time.
-            </p>
-            <p>
-              The biggest lesson I took away from Bunch is that{" "}
+              Bunch taught me that product improvement doesn&apos;t always
+              come from a major redesign. Working on a live community meant
+              constantly balancing member needs, business goals and platform
+              constraints, often through small changes at specific moments in
+              the experience. It strengthened my interest in{" "}
               <span className="font-bold text-ink">
-                great products rarely change overnight. They evolve through
-                thoughtful iteration, measurable outcomes and a clear vision
-                of where they&apos;re headed.
+                taking on broader product ownership
+              </span>{" "}
+              - understanding not only how to improve an individual
+              interaction, but{" "}
+              <span className="font-bold text-ink">
+                how individual decisions fit into a product&apos;s larger
+                goals, ecosystem and direction.
               </span>
             </p>
           </div>

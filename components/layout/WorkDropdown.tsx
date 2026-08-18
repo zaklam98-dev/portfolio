@@ -90,6 +90,14 @@ export default function WorkDropdown({
             direction === "down" ? "top-full mt-3" : "bottom-full mb-3"
           }`}
         >
+          <Link
+            href="/work"
+            role="menuitem"
+            onClick={() => setOpen(false)}
+            className="mb-2 block rounded-lg border-b border-border px-4 pb-3 pt-2.5 text-sm font-semibold text-ink transition-colors duration-200 hover:bg-bg"
+          >
+            View all work →
+          </Link>
           {allProjects.map((project) => (
             <Link
               key={project.href}

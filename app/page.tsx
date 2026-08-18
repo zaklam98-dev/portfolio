@@ -15,16 +15,18 @@ export const metadata: Metadata = {
 
 const [firstSelectedWork, ...otherSelectedWork] = selectedWork;
 
-// The homepage featured card uses a wider banner crop of the Woolworths
-// hero art than the 4:3 image used everywhere else this project is listed
-// (the /work grid, the case study page) — override just the image here
-// rather than in lib/projects.ts.
-const featuredProject = {
-  ...firstSelectedWork,
-  image: "/images/home/woolworths-internal-products-featured.png",
-  imageWidth: 2304,
-  imageHeight: 880,
-};
+// The homepage featured card is whichever project is first in
+// `selectedWork` — driven entirely by that array's order and its optional
+// `featuredImage*` fields (see lib/projects.ts), so reordering projects
+// never requires a code change here.
+const featuredProject = firstSelectedWork.featuredImage
+  ? {
+      ...firstSelectedWork,
+      image: firstSelectedWork.featuredImage,
+      imageWidth: firstSelectedWork.featuredImageWidth ?? firstSelectedWork.imageWidth,
+      imageHeight: firstSelectedWork.featuredImageHeight ?? firstSelectedWork.imageHeight,
+    }
+  : firstSelectedWork;
 
 export default function HomePage() {
   return (
@@ -42,7 +44,8 @@ export default function HomePage() {
             <ProjectCard
               project={featuredProject}
               size="large"
-              imageAspectClass="aspect-[2304/880]"
+              imageAspectClass={firstSelectedWork.featuredImageAspectClass}
+              wideDescription
             />
           </div>
         </Reveal>

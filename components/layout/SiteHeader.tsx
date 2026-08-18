@@ -150,6 +150,18 @@ export default function SiteHeader() {
                       </button>
                       {workExpanded && (
                         <ul className="mt-3 flex flex-col gap-3 pl-4">
+                          <li className="border-b border-border pb-3">
+                            <Link
+                              href="/work"
+                              className="text-sm font-semibold text-ink"
+                              onClick={() => {
+                                setMenuOpen(false);
+                                setWorkExpanded(false);
+                              }}
+                            >
+                              View all work →
+                            </Link>
+                          </li>
                           {allProjects.map((project) => (
                             <li key={project.href}>
                               <Link

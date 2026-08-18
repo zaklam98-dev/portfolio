@@ -22,7 +22,7 @@ const navItems = [
 ];
 
 const metaRows = [
-  { label: "Role", value: ["UX/UI Designer"] },
+  { label: "Role", value: ["Creative Designer | UX/UI"] },
   { label: "Year", value: ["2025, 2026"] },
   { label: "Deliverables", value: ["Website", "Visual design", "Developer Handoff"] },
 ];
@@ -154,9 +154,9 @@ export default function WoolworthsInternalProductsPage() {
         imageWidth={2304}
         imageHeight={880}
         imageAlt="Isometric collage of Woolworths internal product screens: Product Spec Review, Industry Events editorial calendar, Upcoming events calendar, and New Releases grocery launch screen"
-        title="Internal Products for Operational Teams at Woolworths"
+        title="Designing Enterprise Products at Woolworths"
         meta={metaRows}
-        intro="Transforming complex operational data into intuitive internal products that help teams find information faster, make better decisions, and reduce reliance on spreadsheets."
+        intro="Designing intuitive internal experiences that turn complex, spreadsheet-driven workflows into clearer ways to find and use information."
         navItems={navItems}
         disclaimer="This case study showcases real products designed at Woolworths. To protect confidential business information, selected screenshots, datasets and content have been anonymised or recreated. The workflows, design challenges, decisions and user experiences accurately reflect my contributions to these projects."
       />
@@ -168,9 +168,10 @@ export default function WoolworthsInternalProductsPage() {
         <Reveal variant="paragraph" delay={100} className="mt-6">
           <div className="space-y-5 text-lg leading-relaxed text-body">
             <p>
-              During my time at Woolworths, I designed a suite of internal web
-              applications used across multiple business teams to manage
-              product launches, industry events, and compliance reviews.
+              During my time at Woolworths, I&apos;ve contributed UX/UI design
+              across a range of internal web applications used by different
+              business teams to manage product launches, industry events and
+              compliance reviews.
             </p>
             <p>Although each product served a different purpose, they all shared the same challenge:</p>
             <blockquote className="border-l-2 border-ink/30 pl-6 text-2xl leading-snug text-ink md:text-3xl">
@@ -187,9 +188,7 @@ export default function WoolworthsInternalProductsPage() {
             <p>
               Together, these platforms replaced spreadsheet-driven workflows
               with purpose-built digital experiences that supported teams
-              throughout the product lifecycle - from planning industry
-              events, to monitoring product launches, to reviewing AI-assisted
-              compliance reports.
+              throughout the product lifecycle.
             </p>
           </div>
         </Reveal>
@@ -211,7 +210,7 @@ export default function WoolworthsInternalProductsPage() {
 
         <div className="mt-16 md:mt-20">
           <Reveal variant="paragraph">
-            <Eyebrow variant="muted">Design Philosophy</Eyebrow>
+            <Eyebrow variant="muted">What I Focused On</Eyebrow>
           </Reveal>
           <Reveal variant="paragraph" delay={100} className="mt-6">
             <p className="text-lg text-ink">
@@ -395,8 +394,8 @@ export default function WoolworthsInternalProductsPage() {
 
           <Reveal variant="paragraph" className="mt-16">
             <blockquote className="border-l-2 border-ink/30 pl-6 text-2xl leading-snug text-ink md:text-3xl">
-              Teams can now discover relevant events in seconds instead of
-              navigating large spreadsheets.
+              Teams can discover relevant events without navigating large
+              spreadsheets.
             </blockquote>
           </Reveal>
 
@@ -592,21 +591,14 @@ export default function WoolworthsInternalProductsPage() {
               <Eyebrow variant="teal">Bringing Delight To Enterprise Software</Eyebrow>
               <div className="mt-4 space-y-4 text-lg leading-relaxed text-body">
                 <p>
-                  Internal tools often prioritise functionality over
-                  experience. This platform explored how thoughtful visual
-                  design could make everyday operational tasks more enjoyable
-                  without reducing clarity.
+                  Because the platform was an internal tool, there was an
+                  opportunity to make the experience more engaging without
+                  compromising clarity or speed.
                 </p>
-                <p>Subtle motion included:</p>
-                <ul className="list-disc space-y-2 pl-5">
-                  <li>parallax scrolling</li>
-                  <li>animated sparkles</li>
-                  <li>layered illustrations</li>
-                  <li>interactive transitions</li>
-                </ul>
                 <p>
-                  These interactions celebrated new product launches while
-                  maintaining a fast, lightweight experience.
+                  I explored lightweight motion and illustration to give each
+                  category a distinct identity while keeping the underlying
+                  interaction patterns consistent.
                 </p>
               </div>
             </Reveal>
@@ -750,21 +742,31 @@ export default function WoolworthsInternalProductsPage() {
       <section id="outcomes" className="container-work py-16 md:py-20">
         <Reveal variant="heading">
           <h2 className="font-heading text-4xl font-extrabold text-ink md:text-5xl">
-            Outcomes
+            What I delivered
           </h2>
         </Reveal>
         <Reveal variant="paragraph" delay={100} className="mt-6">
           <div className="space-y-4 text-lg leading-relaxed text-body">
             <p>
-              These enterprise products transformed fragmented operational
-              workflows into intuitive digital experiences that support
-              teams across Woolworths.
+              Across these projects, I delivered responsive web experiences
+              that translated complex datasets and operational requirements
+              into clearer ways to browse, filter and review information.
             </p>
-            <p>The platforms now enable users to:</p>
             <ul className="list-disc space-y-2 pl-5">
-              <li>discover information faster</li>
-              <li>navigate large datasets more efficiently</li>
-              <li>review complex information with greater confidence</li>
+              <li>
+                <span className="font-bold text-ink">Industry Events:</span>{" "}
+                Search, filtering, calendar and responsive event browsing.
+              </li>
+              <li>
+                <span className="font-bold text-ink">New Releases:</span>{" "}
+                Category-first product discovery, filtering and
+                product-focused layouts.
+              </li>
+              <li>
+                <span className="font-bold text-ink">Compliance Review:</span>{" "}
+                Layered information hierarchy for reviewing AI-generated
+                findings.
+              </li>
             </ul>
           </div>
         </Reveal>
@@ -774,12 +776,10 @@ export default function WoolworthsInternalProductsPage() {
             <Eyebrow variant="muted">Reflection</Eyebrow>
             <div className="mt-4 space-y-4 text-lg leading-relaxed text-body">
               <p>
-                Designing enterprise products taught me that{" "}
-                <span className="font-bold text-ink">
-                  the biggest challenge was never simply creating polished
-                  interfaces, it was understanding how people make decisions
-                  within complex systems.
-                </span>
+                Designing enterprise products taught me that the biggest
+                challenge was never simply creating polished interfaces, it
+                was understanding how people make decisions within complex
+                systems.
               </p>
               <p>
                 Across every project, I found that the greatest improvements
@@ -788,12 +788,15 @@ export default function WoolworthsInternalProductsPage() {
                 right time.
               </p>
               <p>
-                That mindset continues to shape how I approach every product
-                I design:{" "}
+                These projects strengthened my interest in Product Design
+                because they showed me that{" "}
                 <span className="font-bold text-ink">
-                  start with the decisions users need to make, then design
-                  experiences that make those decisions feel effortless.
-                </span>
+                  good design starts with understanding the decisions,
+                  constraints and information behind the screen.
+                </span>{" "}
+                I&apos;m continuing to build on that foundation by developing
+                stronger skills in problem framing, research and end-to-end
+                product thinking.
               </p>
             </div>
           </Reveal>

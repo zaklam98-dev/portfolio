@@ -155,7 +155,7 @@ export default function RealSwipePage() {
               collaborative synthesis.
             </p>
           </Reveal>
-          <Reveal variant="image" delay={100} className="mt-10">
+          <Reveal variant="image" delay={100} className="mt-[64px]">
             <Image
               src="/images/work/realswipe/research-timeline.png"
               width={1730}
@@ -202,7 +202,7 @@ export default function RealSwipePage() {
           />
         </Reveal>
 
-        <div className="mt-8">
+        <div className="mt-[56px]">
           <Reveal variant="paragraph">
             <Eyebrow variant="muted">Problem</Eyebrow>
             <div className="mt-4 space-y-4">
@@ -218,7 +218,7 @@ export default function RealSwipePage() {
           </Reveal>
         </div>
 
-        <div className="mt-10">
+        <div className="mt-[64px]">
           <Reveal variant="paragraph">
             <Eyebrow variant="muted">Design</Eyebrow>
             <div className="mt-4 space-y-4 text-lg leading-relaxed text-body">
@@ -243,7 +243,7 @@ export default function RealSwipePage() {
           </Reveal>
         </div>
 
-        <Reveal variant="image" className="mt-10">
+        <Reveal variant="image" className="mt-[64px]">
           <Image
             src="/images/work/realswipe/solution-01.png"
             width={1830}
@@ -253,7 +253,7 @@ export default function RealSwipePage() {
           />
         </Reveal>
 
-        <Reveal variant="paragraph" delay={150} className="mt-10">
+        <Reveal variant="paragraph" delay={150} className="mt-[64px]">
           <p className="text-lg leading-relaxed text-body">
             Users immediately understood it as a place to meet people through
             shared experiences.
@@ -269,7 +269,7 @@ export default function RealSwipePage() {
           />
         </Reveal>
 
-        <div className="mt-8">
+        <div className="mt-[56px]">
           <Reveal variant="paragraph">
             <Eyebrow variant="muted">Problem</Eyebrow>
             <blockquote className="mt-4 border-l-2 border-ink/30 pl-6 text-2xl leading-snug text-ink md:text-3xl">
@@ -279,7 +279,7 @@ export default function RealSwipePage() {
           </Reveal>
         </div>
 
-        <div className="mt-10">
+        <div className="mt-[64px]">
           <Reveal variant="paragraph">
             <Eyebrow variant="muted">Design</Eyebrow>
             <div className="mt-4 space-y-4 text-lg leading-relaxed text-body">
@@ -300,7 +300,7 @@ export default function RealSwipePage() {
           </Reveal>
         </div>
 
-        <Reveal variant="image" className="mt-10">
+        <Reveal variant="image" className="mt-[64px]">
           <Image
             src="/images/work/realswipe/solution-02-1.png"
             width={1788}
@@ -310,7 +310,7 @@ export default function RealSwipePage() {
           />
         </Reveal>
 
-        <Reveal variant="image" className="mt-10">
+        <Reveal variant="image" className="mt-[64px]">
           <Image
             src="/images/work/realswipe/solution-02-2.png"
             width={1804}
@@ -320,7 +320,7 @@ export default function RealSwipePage() {
           />
         </Reveal>
 
-        <Reveal variant="paragraph" delay={150} className="mt-10">
+        <Reveal variant="paragraph" delay={150} className="mt-[64px]">
           <p className="text-lg leading-relaxed text-body">
             The experience shifted from browsing an empty map to actively
             discovering nearby venues, events and communities.
@@ -336,7 +336,7 @@ export default function RealSwipePage() {
           />
         </Reveal>
 
-        <div className="mt-8">
+        <div className="mt-[56px]">
           <Reveal variant="paragraph">
             <Eyebrow variant="muted">Problem</Eyebrow>
             <blockquote className="mt-4 space-y-2 border-l-2 border-ink/30 pl-6 text-2xl leading-snug text-ink md:text-3xl">
@@ -352,7 +352,7 @@ export default function RealSwipePage() {
           </Reveal>
         </div>
 
-        <div className="mt-10">
+        <div className="mt-[64px]">
           <Reveal variant="paragraph">
             <Eyebrow variant="muted">Design</Eyebrow>
             <div className="mt-4 space-y-4 text-lg leading-relaxed text-body">
@@ -373,7 +373,7 @@ export default function RealSwipePage() {
           </Reveal>
         </div>
 
-        <Reveal variant="image" className="mt-10">
+        <Reveal variant="image" className="mt-[64px]">
           <Image
             src="/images/work/realswipe/solution-03.png"
             width={1769}
@@ -383,7 +383,7 @@ export default function RealSwipePage() {
           />
         </Reveal>
 
-        <Reveal variant="paragraph" delay={150} className="mt-10">
+        <Reveal variant="paragraph" delay={150} className="mt-[64px]">
           <p className="text-lg leading-relaxed text-body">
             Connections became grounded in shared experiences rather than
             first impressions.

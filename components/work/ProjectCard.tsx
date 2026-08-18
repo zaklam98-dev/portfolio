@@ -9,12 +9,17 @@ type ProjectCardProps = {
   /** Overrides the image's default 4:3 aspect ratio — e.g. a wide banner
    * ratio for a single featured card. */
   imageAspectClass?: string;
+  /** Lets the description span the card's full width instead of the
+   * default `max-w-md` — for a single wide featured card, where that cap
+   * otherwise leaves an oddly narrow text column under a full-width image. */
+  wideDescription?: boolean;
 };
 
 export default function ProjectCard({
   project,
   size = "large",
   imageAspectClass = "aspect-[4/3]",
+  wideDescription = false,
 }: ProjectCardProps) {
   const titleSize =
     size === "large" ? "text-xl md:text-2xl" : "text-lg md:text-xl";
@@ -50,7 +55,11 @@ export default function ProjectCard({
         >
           {project.title}
         </h3>
-        <p className="mt-3 max-w-md text-base leading-relaxed text-body">
+        <p
+          className={`mt-3 text-base leading-relaxed text-body ${
+            wideDescription ? "" : "max-w-md"
+          }`}
+        >
           {project.description}
         </p>
         <div className="mt-5 flex flex-wrap gap-2.5">

@@ -9,22 +9,24 @@ export type Project = {
   href: string;
   /** Renders a "Coming soon" pill over the card's image (e.g. HobbyLink). */
   comingSoon?: boolean;
+  /** Optional wider banner crop used specifically for the Home page's
+   * single featured card (whichever project is first in `selectedWork`).
+   * Falls back to `image`/`imageWidth`/`imageHeight` when omitted, so
+   * reordering `selectedWork` never requires a code change on the Home
+   * page — only a project that should ever be featured needs this set. */
+  featuredImage?: string;
+  featuredImageWidth?: number;
+  featuredImageHeight?: number;
+  /** Tailwind aspect-ratio class matching featuredImage's dimensions.
+   * Must be a literal string (not computed at runtime) so Tailwind's JIT
+   * scanner can pick it up. Falls back to ProjectCard's own default
+   * ("aspect-[4/3]") when omitted. */
+  featuredImageAspectClass?: string;
 };
 
 export const selectedWork: Project[] = [
   {
     number: "001",
-    title: "Woolworths Internal Products",
-    description:
-      "Transforming complex enterprise data into intuitive products that help teams make faster decisions.",
-    tags: ["Enterprise UX", "Information Architecture"],
-    image: "/images/home/woolworths-internal-products.png",
-    imageWidth: 761,
-    imageHeight: 599,
-    href: "/work/woolworths-internal-products",
-  },
-  {
-    number: "002",
     title: "Woolworths • Bunch",
     description:
       "Evolving an online food community through feature design and user-centred improvements.",
@@ -33,6 +35,25 @@ export const selectedWork: Project[] = [
     imageWidth: 761,
     imageHeight: 599,
     href: "/work/bunch",
+    featuredImage: "/images/home/bunch-featured.png",
+    featuredImageWidth: 2304,
+    featuredImageHeight: 1000,
+    featuredImageAspectClass: "aspect-[2304/1000]",
+  },
+  {
+    number: "002",
+    title: "Woolworths Internal Products",
+    description:
+      "Transforming complex enterprise data into intuitive products that help teams make faster decisions.",
+    tags: ["Enterprise UX", "Information Architecture"],
+    image: "/images/home/woolworths-internal-products.png",
+    imageWidth: 761,
+    imageHeight: 599,
+    href: "/work/woolworths-internal-products",
+    featuredImage: "/images/home/woolworths-internal-products-featured.png",
+    featuredImageWidth: 2304,
+    featuredImageHeight: 880,
+    featuredImageAspectClass: "aspect-[2304/880]",
   },
   {
     number: "003",
