@@ -76,8 +76,8 @@ export default function BunchPage() {
     <>
       <CaseStudyHero
         image="/images/work/bunch/hero.png"
-        imageWidth={1728}
-        imageHeight={780}
+        imageWidth={2304}
+        imageHeight={1000}
         imageAlt="Laptop on a sunlit desk displaying the Bunch homepage, with a 'Share your best recipe' banner, member greeting and popular topics"
         title="Woolworths • Bunch"
         subtitle="Helping shape the future of a food community through continuous product evolution."
